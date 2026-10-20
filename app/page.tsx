@@ -4,6 +4,7 @@ import Ribbon from "@/components/Ribbon";
 import Story from "@/components/Story";
 import Day from "@/components/Day";
 import Groups from "@/components/Groups";
+import Pickup from "@/components/Pickup";
 import AppShowcase from "@/components/AppShowcase";
 import Spaces from "@/components/Spaces";
 import Faq from "@/components/Faq";
@@ -23,6 +24,7 @@ export default function Home() {
         <Story />
         <Day />
         <Groups />
+        <Pickup />
         <AppShowcase />
         <Spaces />
         <Faq />
