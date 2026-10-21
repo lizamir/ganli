@@ -155,7 +155,7 @@
 .rd-now { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--tomato); pointer-events: none; }
 .rd-now em {
   position: absolute; bottom: 100%; transform: translateX(50%);
-  font: 600 0.75rem var(--font-display); font-style: normal; color: #fff; background: var(--tomato);
+  font: 600 0.75rem var(--font-display); font-style: normal; color: #fff; background: var(--tomato-ink);
   padding: 3px 8px; border-radius: 8px; white-space: nowrap; margin-bottom: 4px;
 }
 .ribbon-day.compact .rd-lanes { gap: 2px; }
