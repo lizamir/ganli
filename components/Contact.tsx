@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { CONTACT, GROUPS } from "@/lib/content";
 import { useGanli } from "@/lib/app/store";
+import { auto } from "@/lib/app/automations";
 import { LogoMark, Star } from "./Shapes";
 
 export default function Contact() {
@@ -26,7 +27,10 @@ export default function Contact() {
     });
     setBusy(false);
     if (err) setError(err);
-    else setSent(true);
+    else {
+      setSent(true);
+      auto.note(`פנייה חדשה מהאתר: ${String(f.get("parent") || "").trim()}. הפנייה נכנסה לרשימת ההרשמות.`);
+    }
   };
 
   return (
@@ -35,7 +39,7 @@ export default function Contact() {
         <div className="contact-card">
           <div className="contact-copy reveal">
             <p className="eyebrow">
-              <b>(07)</b> בואו להכיר
+              <b>(08)</b> בואו להכיר
             </p>
             <h2 id="contact-title" className="title">
               מוזמנים לסיור

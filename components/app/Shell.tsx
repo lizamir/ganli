@@ -34,6 +34,7 @@ const NAV: Record<Role, NavItem[]> = {
     { href: "/app/admin/finance", label: "כספים", icon: "wallet" },
     { href: "/app/admin/messages", label: "הודעות", icon: "chat" },
     { href: "/app/admin/leads", label: "הרשמות", icon: "clipboard" },
+    { href: "/app/admin/automations", label: "אוטומציות", icon: "bolt" },
   ],
 };
 

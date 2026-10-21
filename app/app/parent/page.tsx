@@ -7,6 +7,7 @@ import Scene from "@/components/app/Scene";
 import { Badge, Card, Disc, Empty, KIND, PageHead } from "@/components/app/ui";
 import { useGanli } from "@/lib/app/store";
 import { summarizeDay } from "@/lib/app/helpers";
+import SignupNotice from "@/components/app/SignupNotice";
 
 export default function ParentToday() {
   const { data, profile, actions } = useGanli();
@@ -38,6 +39,7 @@ export default function ParentToday() {
         }
       />
 
+      <SignupNotice childId={child.id} childName={child.name} />
       <div className="grid-parent">
         <div className="hero-photo">
           <Scene name={birthday ? "party" : photos[0]?.scene ?? "sand"} label={birthday ? "יום הולדת" : photos[0]?.caption} />

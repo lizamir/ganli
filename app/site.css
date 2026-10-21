@@ -536,3 +536,26 @@ html.a11y-nomotion .squiggle path { stroke-dashoffset: 0 !important; }
 .tag-hint { position: absolute; inset-inline-end: 4%; top: 60px; font-size: 1.5rem; color: var(--tomato-ink); transform: rotate(6deg); }
 @media (max-width: 860px) { .pickup-grid { grid-template-columns: 1fr; } .tag-hint { display: none; } }
 .a11y-nomotion .tag-inner { transition: none; }
+
+/* ───────────── Meeting with the director ───────────── */
+.meet { padding-bottom: 40px; }
+.meet-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(28px, 5vw, 70px); align-items: start; }
+.meet-how { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 12px; font-size: 1.08rem; }
+.meet-how li { display: flex; align-items: center; gap: 14px; }
+.meet-how b { width: 34px; height: 34px; border-radius: 50%; background: var(--teal-deep); color: var(--cream); display: grid; place-items: center; flex: none; }
+.meet-card { box-shadow: var(--shadow-block); border: 2px solid var(--sand); }
+.meet-form { display: grid; gap: 16px; }
+.slot-group { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; min-width: 0; }
+.slot-group legend { font-weight: 700; font-size: 0.95rem; color: var(--cocoa-deep); padding: 0; margin-bottom: 8px; }
+.slots { display: flex; flex-wrap: wrap; gap: 8px; }
+.slots button { min-height: 44px; padding: 8px 14px; border-radius: 14px; border: 2px solid var(--sand); background: var(--cream); color: var(--cocoa-deep); font: 600 0.95rem var(--font-body); transition: background 0.2s, border-color 0.2s; }
+.slots button:hover { border-color: var(--teal); }
+.slots button[aria-pressed="true"] { background: var(--teal-deep); border-color: var(--teal-deep); color: #fff; }
+.meet-done { display: grid; gap: 14px; justify-items: start; }
+.meet-done h3 { color: var(--teal-deep); }
+.meet-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn-wa { background: #0e7a3f; color: #fff; box-shadow: 0 5px 0 #075c2e; }
+.btn-wa:hover { box-shadow: 0 8px 0 #075c2e; }
+.meet-done .form-note { text-align: start; }
+.meet .link-btn { border: 0; background: none; color: var(--teal-deep); font: 600 0.95rem var(--font-display); padding: 8px 0; min-height: 44px; text-decoration: underline; }
+@media (max-width: 900px) { .meet-grid { grid-template-columns: 1fr; } }

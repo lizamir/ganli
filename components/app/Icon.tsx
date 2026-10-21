@@ -23,6 +23,7 @@ const PATHS: Record<string, string> = {
   menu: "M4 7h16M4 12h16M4 17h16",
   qr: "M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 14h2v2M14 18h2v2h4v-4",
   more: "M5 12h.01M12 12h.01M19 12h.01",
+  bolt: "M13 3L5 14h6l-1 7 8-11h-6z",
   user: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1",
 };
 

@@ -8,6 +8,7 @@ import Pickup from "@/components/Pickup";
 import AppShowcase from "@/components/AppShowcase";
 import Spaces from "@/components/Spaces";
 import Faq from "@/components/Faq";
+import Booking from "@/components/Booking";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import MobileBar from "@/components/MobileBar";
@@ -28,6 +29,7 @@ export default function Home() {
         <AppShowcase />
         <Spaces />
         <Faq />
+        <Booking />
         <Contact />
       </main>
       <Footer />
