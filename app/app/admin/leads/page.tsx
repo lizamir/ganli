@@ -1,14 +1,19 @@
 "use client";
 
-import { Badge, Card, Empty, PageHead } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import { Badge, Card, Empty, PageHead } from "@/components/dashboard/ui";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** Enrollment requests that came from the site. */
 export default function AdminLeads() {
   const { data, mode } = useGanli();
   if (!data) return null;
   return (
     <>
-      <PageHead kicker="הרשמות" title="בקשות הרשמה וסיור" actions={<Badge tone={data.leads.length ? "warn" : "mute"}>{data.leads.length} בקשות</Badge>} />
+      <PageHead
+        kicker="הרשמות"
+        title="בקשות הרשמה וסיור"
+        actions={<Badge tone={data.leads.length ? "warn" : "mute"}>{data.leads.length} בקשות</Badge>}
+      />
       <Card title="מהאתר">
         {data.leads.length === 0 ? (
           <Empty>

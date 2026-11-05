@@ -1,0 +1,68 @@
+/* ───────────── Type system ─────────────
+   Heebo 900 at tight tracking carries the headlines. The handwriting accent (Gveret Levin)
+   marks the one word that matters, the big numerals and the margin notes (`.serif` is the legacy
+   class name for "accent word"; `.hand` is the same face for notes). Never for running text. */
+.serif,
+.hand {
+  font-family: var(--font-hand-face);
+  font-weight: 400;
+  letter-spacing: 0;
+  font-style: normal;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--teal-deep);
+}
+.eyebrow b {
+  font-family: var(--font-hand-face);
+  font-weight: 400;
+  font-size: 1.35em;
+  color: var(--tomato-ink);
+  letter-spacing: 0;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
+}
+.display {
+  font-size: clamp(2.6rem, 6.2vw, 5.6rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+.title {
+  font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-top: 18px;
+}
+.title .serif,
+.display .serif {
+  font-size: 1.12em;
+  line-height: 0.9;
+}
+.ink-tomato {
+  color: var(--tomato-ink);
+}
+.ink-teal {
+  color: var(--teal-deep);
+}
+.ink-mustard {
+  color: var(--mustard-ink);
+}
+.lead {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 34rem;
+}

@@ -1,0 +1,63 @@
+/* ───────────── Accessibility modes ───────────── */
+html.a11y-nomotion *,
+html.a11y-nomotion *::before,
+html.a11y-nomotion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+html.a11y-nomotion .reveal,
+html.a11y-nomotion .mask > span {
+  opacity: 1 !important;
+  transform: none !important;
+}
+html.a11y-links a:not(.btn):not(.skip-link) {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 2px;
+}
+html.a11y-spacing body {
+  line-height: 1.95;
+  letter-spacing: 0.035em;
+  word-spacing: 0.14em;
+}
+html.a11y-contrast {
+  --cream: #ffffff;
+  --paper: #ffffff;
+  --sand: #f2f2f2;
+  --cocoa: #1a1410;
+  --cocoa-deep: #000000;
+  --muted: #26201b;
+  --teal-deep: #004f52;
+  --tomato-ink: #8f2410;
+  --mustard-ink: #5c3a00;
+  --tomato-btn: #a8301a;
+  --teal-soft: #e6f3f2;
+  --mustard-soft: #fff3d6;
+  --blush-soft: #ffeceb;
+}
+html.a11y-contrast .grain {
+  display: none;
+}
+html.a11y-contrast :is(.dcard, .pillar, .group, .faq-item, .bento > *, .role-card, .slot, .stat) {
+  outline: 2px solid #000;
+}
+html.a11y-contrast :focus-visible {
+  outline: 4px solid #000;
+  box-shadow: 0 0 0 8px #ffd400;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal,
+  .mask > span {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

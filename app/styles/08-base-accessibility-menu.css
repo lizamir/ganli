@@ -1,0 +1,100 @@
+/* ───────────── Accessibility menu ───────────── */
+.a11y {
+  position: fixed;
+  inset-block-end: 20px;
+  inset-inline-start: 20px;
+  z-index: 200;
+}
+.a11y-fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--cocoa-deep);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 26px -8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s var(--ease-spring);
+}
+.a11y-fab:hover {
+  transform: scale(1.08) rotate(-6deg);
+}
+.a11y-panel {
+  position: absolute;
+  inset-block-end: 70px;
+  inset-inline-start: 0;
+  width: min(320px, calc(100vw - 40px));
+  background: var(--paper);
+  color: var(--cocoa-deep);
+  border-radius: 24px;
+  padding: 18px;
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45);
+  display: grid;
+  gap: 12px;
+  border: 2px solid var(--cocoa-deep);
+}
+.a11y-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+}
+.a11y-head button {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 0;
+  background: var(--sand);
+}
+.a11y-size {
+  display: grid;
+  grid-template-columns: 56px 1fr 56px;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+  font-weight: 600;
+}
+.a11y-size button {
+  min-height: 48px;
+  border-radius: 14px;
+  border: 2px solid var(--cocoa-deep);
+  background: var(--paper);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.a11y-size button:disabled {
+  opacity: 0.4;
+}
+.a11y-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--sand);
+  min-height: 48px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.a11y-toggle input {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--teal-deep);
+  flex: none;
+}
+.a11y-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+}
+.a11y-foot button,
+.a11y-foot a {
+  font-weight: 700;
+  color: var(--teal-deep);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  padding: 6px;
+}

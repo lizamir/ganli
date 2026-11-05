@@ -1,8 +1,10 @@
 "use client";
 
-import { Badge, Card, Empty, PageHead, shekel } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import { Badge, Card, Empty, PageHead } from "@/components/dashboard/ui";
+import { shekel } from "@/lib/format";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** The parent's charges and what is left to pay. */
 export default function ParentPayments() {
   const { data, profile } = useGanli();
   if (!data || !profile) return null;
@@ -17,7 +19,9 @@ export default function ParentPayments() {
           <div className="big-number">
             <span>{open ? "יתרה לתשלום" : "הכל שולם"}</span>
             <b>{shekel(open)}</b>
-            <small>{open ? "התשלום מתבצע בהעברה בנקאית. הקבלה תופיע כאן לאחר רישום התשלום." : "תודה! אין חיובים פתוחים."}</small>
+            <small>
+              {open ? "התשלום מתבצע בהעברה בנקאית. הקבלה תופיע כאן לאחר רישום התשלום." : "תודה! אין חיובים פתוחים."}
+            </small>
           </div>
         </Card>
         <Card title="פרטים לתשלום">
@@ -54,7 +58,15 @@ export default function ParentPayments() {
                   <td data-label="שולם">{shekel(c.paid)}</td>
                   <td data-label="מועד">{c.due}</td>
                   <td data-label="מצב">
-                    {c.paid >= c.amount ? <Badge tone="ok">שולם</Badge> : c.late ? <Badge tone="bad">באיחור</Badge> : c.paid > 0 ? <Badge tone="warn">שולם חלקית</Badge> : <Badge tone="warn">פתוח</Badge>}
+                    {c.paid >= c.amount ? (
+                      <Badge tone="ok">שולם</Badge>
+                    ) : c.late ? (
+                      <Badge tone="bad">באיחור</Badge>
+                    ) : c.paid > 0 ? (
+                      <Badge tone="warn">שולם חלקית</Badge>
+                    ) : (
+                      <Badge tone="warn">פתוח</Badge>
+                    )}
                   </td>
                   <td data-label="מסמך">{c.doc || "—"}</td>
                 </tr>

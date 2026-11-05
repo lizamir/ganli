@@ -1,0 +1,52 @@
+/* ───────────── Cursor ring ───────────── */
+.cursor {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 250;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.cursor.show {
+  opacity: 1;
+}
+.cursor span {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  border: 2px solid var(--tomato-btn);
+  background: rgba(235, 90, 59, 0.08);
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  transition:
+    width 0.3s var(--ease-spring),
+    height 0.3s var(--ease-spring),
+    margin 0.3s var(--ease-spring),
+    background 0.2s;
+}
+.cursor[data-mode="link"] span {
+  width: 58px;
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  background: rgba(235, 90, 59, 0.14);
+}
+.cursor[data-mode="label"] span {
+  width: 84px;
+  height: 84px;
+  margin: -42px 0 0 -42px;
+  background: var(--tomato-btn);
+  border-color: transparent;
+}
+.cursor[data-mode="label"] span::after {
+  content: attr(data-label);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}

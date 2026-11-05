@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import QrCode from "@/components/app/QrCode";
-import { Avatar, Badge, Card, PageHead } from "@/components/app/ui";
-import { pickupCode, qrPayload } from "@/lib/app/helpers";
-import { useGanli } from "@/lib/app/store";
+import QrCode from "@/components/dashboard/care/QrCode";
+import { Avatar, Badge, Card, PageHead } from "@/components/dashboard/ui";
+import { authorizedLabel, pickupCode, qrPayload } from "@/lib/domain/pickup";
+import { useGanli } from "@/lib/data/GanliProvider";
 
 const TIMES = ["15:00", "15:30", "16:00", "16:30", "17:00"];
 
+/** Today's pickup code for the parent, and who is planned to collect the child. */
 export default function ParentPickup() {
   const { data, profile, actions, mode } = useGanli();
   const [who, setWho] = useState("");
@@ -18,12 +19,16 @@ export default function ParentPickup() {
   const child = data.children.find((c) => c.id === profile.childId) ?? data.children[0];
   const code = pickupCode(child.id);
   const planned = data.pickups.find((p) => p.childId === child.id);
-  const chosen = who || planned?.who || (child.authorized[0] ? `${child.authorized[0].name} (${child.authorized[0].relation})` : "");
+  const chosen = who || planned?.who || (child.authorized[0] ? authorizedLabel(child.authorized[0]) : "");
 
   const save = async (e: React.FormEvent) => {
     e.preventDefault();
     const err = await actions.planPickup(child.id, chosen, time);
-    setMsg(err ? { ok: false, text: err } : { ok: true, text: `נשמר: ${chosen} אוספ/ת את ${child.name} בסביבות ${time}. הצוות רואה את זה.` });
+    setMsg(
+      err
+        ? { ok: false, text: err }
+        : { ok: true, text: `נשמר: ${chosen} אוספ/ת את ${child.name} בסביבות ${time}. הצוות רואה את זה.` },
+    );
   };
 
   return (
@@ -49,9 +54,15 @@ export default function ParentPickup() {
               <legend>מורשים לאיסוף</legend>
               <div className="detail-picks">
                 {child.authorized.map((a) => {
-                  const label = `${a.name} (${a.relation})`;
+                  const label = authorizedLabel(a);
                   return (
-                    <button type="button" key={label} className={chosen === label ? "on" : undefined} aria-pressed={chosen === label} onClick={() => setWho(label)}>
+                    <button
+                      type="button"
+                      key={label}
+                      className={chosen === label ? "on" : undefined}
+                      aria-pressed={chosen === label}
+                      onClick={() => setWho(label)}
+                    >
                       <Avatar name={a.name} color="#f6c86e" size={26} /> {label}
                     </button>
                   );
@@ -91,7 +102,9 @@ export default function ParentPickup() {
             </li>
           ))}
         </ul>
-        <p className="hint-line">להוספת מורשה (למשל שכן או בן משפחה) פנו למנהלת. בקשת שינוי באיסוף אינה מחליפה אישור של הצוות בפועל.</p>
+        <p className="hint-line">
+          להוספת מורשה (למשל שכן או בן משפחה) פנו למנהלת. בקשת שינוי באיסוף אינה מחליפה אישור של הצוות בפועל.
+        </p>
         {mode === "supabase" && <p className="hint-line">במצב שרת, תכנון האיסוף עדיין לא נשמר. הקוד והרשימה עובדים.</p>}
       </Card>
     </>

@@ -1,8 +1,9 @@
 "use client";
 
-import { Avatar, Badge, Card, PageHead } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import { Avatar, Badge, Card, PageHead } from "@/components/dashboard/ui";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** Allergies and care notes the staff must know. */
 export default function StaffInfo() {
   const { data } = useGanli();
   if (!data) return null;

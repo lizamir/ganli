@@ -1,0 +1,138 @@
+/* ───────────── Story (scrollytelling) ───────────── */
+.story {
+  position: relative;
+  height: 560vh;
+}
+.story.static {
+  height: auto;
+}
+.story-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  padding-top: var(--header-h);
+  background: var(--bg, var(--cream));
+  transition: background-color 0.9s ease;
+}
+.story.static .story-sticky {
+  position: static;
+  height: auto;
+  padding: 110px 0;
+}
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 56px;
+  align-items: center;
+}
+.chapters {
+  display: grid;
+  margin-top: 26px;
+}
+.chapter {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.55s,
+    transform 0.8s var(--ease-out);
+  pointer-events: none;
+}
+.chapter.on {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition-delay: 0.12s;
+}
+.story.static .chapters {
+  gap: 64px;
+}
+.story.static .chapter {
+  grid-area: auto;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.chapter .title {
+  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  margin-top: 0;
+}
+.chapter .line {
+  display: block;
+}
+.story-accent {
+  color: var(--tomato-ink);
+}
+.chapter .lead {
+  margin-top: 22px;
+  color: var(--cocoa);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin-top: 24px;
+}
+.chips li {
+  background: var(--paper);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 0 rgba(62, 50, 43, 0.14);
+}
+.steps {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin-top: 34px;
+}
+.steps li {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(62, 50, 43, 0.08);
+  color: var(--muted);
+  transition:
+    background 0.4s,
+    color 0.4s,
+    transform 0.5s var(--ease-spring);
+}
+.steps li.done {
+  background: var(--cocoa-deep);
+  color: var(--cream);
+  transform: translateY(-4px) rotate(-3deg);
+}
+.steps .serif {
+  font-size: 1.1rem;
+}
+.story-stage {
+  position: relative;
+}
+.story-stage .arch-window {
+  max-height: 72svh;
+}
+.story-meter {
+  position: absolute;
+  inset-inline: 14%;
+  inset-block-end: -24px;
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(62, 50, 43, 0.14);
+  overflow: hidden;
+}
+.story-meter i {
+  display: block;
+  height: 100%;
+  background: var(--tomato-btn);
+  border-radius: 4px;
+  transform-origin: right center;
+}

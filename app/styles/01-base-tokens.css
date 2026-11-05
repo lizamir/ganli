@@ -1,0 +1,41 @@
+/* ───────────── Brand tokens ─────────────
+   Every text color below was checked against WCAG AA (4.5:1) on the surfaces it sits on.
+   The bright brand colors (--teal, --tomato, --mustard) are for fills and shapes only;
+   text uses the -ink / -deep variants. */
+:root {
+  --cream: #fbf4e8;
+  --paper: #fffdf8;
+  --sand: #f1e3cd;
+  --wood: #d9c3a3;
+  --wood-dark: #b89b76;
+  --cocoa: #5b4a40;
+  --cocoa-deep: #3e322b;
+  --muted: #6a584c;
+
+  --teal: #2e9ea0;
+  --teal-deep: #1b6e70;
+  --teal-soft: #d3ecea;
+  --tomato: #eb5a3b;
+  --tomato-btn: #d2432a;
+  --tomato-ink: #b23518;
+  --tomato-soft: #fbdcd3;
+  --blush: #f3a59b;
+  --blush-soft: #fde6e1;
+  --mustard: #eaa23a;
+  --mustard-ink: #8a5600;
+  --mustard-soft: #fbe9c8;
+  --lilac: #6b5fb5;
+  --lilac-soft: #ebe8f8;
+
+  --font-body: var(--font-heebo), system-ui, sans-serif;
+  --font-display: var(--font-heebo), system-ui, sans-serif;
+  --font-hand-face: var(--font-hand), cursive;
+
+  --ease-out: cubic-bezier(0.2, 0.9, 0.3, 1);
+  --ease-spring: cubic-bezier(0.3, 1.6, 0.5, 1);
+  --radius-lg: 36px;
+  --radius-md: 22px;
+  --shadow-block: 0 6px 0 rgba(62, 50, 43, 0.12), 0 18px 40px -18px rgba(62, 50, 43, 0.35);
+  --container: 1240px;
+  --header-h: 84px;
+}

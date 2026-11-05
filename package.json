@@ -1,13 +1,22 @@
 {
   "name": "ganli",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:demo": "NEXT_PUBLIC_GANLI_DEMO=1 NEXT_PUBLIC_SUPABASE_URL= NEXT_PUBLIC_SUPABASE_ANON_KEY= NEXT_PUBLIC_GANLI_INSTITUTION_ID= next build",
+    "build:portfolio": "NEXT_PUBLIC_GANLI_DEMO=1 NEXT_PUBLIC_SUPABASE_URL= NEXT_PUBLIC_SUPABASE_ANON_KEY= NEXT_PUBLIC_GANLI_INSTITUTION_ID= BASE_PATH=/demos/ganli next build && rm -rf ../liz-portfolio/public/demos/ganli && cp -R out ../liz-portfolio/public/demos/ganli",
     "start": "next start",
-    "lint": "eslint",
-    "build:portfolio": "NEXT_PUBLIC_GANLI_DEMO=1 NEXT_PUBLIC_SUPABASE_URL= NEXT_PUBLIC_SUPABASE_ANON_KEY= NEXT_PUBLIC_GANLI_INSTITUTION_ID= BASE_PATH=/demos/ganli next build && rm -rf ../liz-portfolio/public/demos/ganli && cp -R out ../liz-portfolio/public/demos/ganli"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check": "npm run lint && npm run typecheck && npm run format:check && npm run test",
+    "prepare": "husky"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
@@ -21,13 +30,32 @@
     "three": "^0.186.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.19.2",
     "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.186.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
-    "typescript": "^5"
+    "http-server": "^14.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5",
+    "vitest": "^5.1.0"
+  },
+  "description": "Brand site and management app for a daycare: parents, staff and director.",
+  "engines": {
+    "node": ">=24"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,json,md,mjs,yml}": "prettier --write"
   }
 }

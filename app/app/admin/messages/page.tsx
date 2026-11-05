@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Badge, Card, PageHead } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import InquiriesCard from "@/components/dashboard/admin/messages/InquiriesCard";
+import SentList from "@/components/dashboard/admin/messages/SentList";
+import { Card, PageHead } from "@/components/dashboard/ui";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** Announcements to parents, and parents' inquiries. */
 export default function AdminMessages() {
   const { data, actions } = useGanli();
   const [title, setTitle] = useState("");
@@ -60,48 +63,10 @@ export default function AdminMessages() {
             </form>
           </Card>
 
-          <Card title="הודעות שנשלחו">
-            <ul className="sent-list">
-              {data.announcements.map((a) => (
-                <li key={a.id}>
-                  <div>
-                    <b>{a.title}</b>
-                    <span>{a.time}</span>
-                  </div>
-                  {a.of > 0 && (
-                    <span className="read-meter" aria-label={`נקראה על ידי ${a.readBy} מתוך ${a.of}`}>
-                      <i style={{ width: `${(a.readBy / a.of) * 100}%` }} />
-                      <small>
-                        {a.readBy}/{a.of} קראו
-                      </small>
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </Card>
+          <SentList announcements={data.announcements} />
         </div>
 
-        <Card title="פניות מהורים" note={`${data.inquiries.filter((q) => !q.done).length} פתוחות`}>
-          <ul className="inquiries">
-            {data.inquiries.map((q) => (
-              <li key={q.id} className={q.done ? "done" : undefined}>
-                <div className="msg-top">
-                  <b>{q.from}</b>
-                  <time>{q.time}</time>
-                </div>
-                {q.kind === "absence" && <Badge tone="cool">דיווח היעדרות</Badge>}
-                <p>{q.text}</p>
-                <div className="row-end">
-                  {q.done ? <Badge tone="ok">טופל</Badge> : <Badge tone="warn">ממתין</Badge>}
-                  <button type="button" className="mini-btn" onClick={() => actions.setInquiryDone(q.id, !q.done)}>
-                    {q.done ? "החזרה לפתוח" : "סימון כטופל"}
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Card>
+        <InquiriesCard inquiries={data.inquiries} onToggle={actions.setInquiryDone} />
       </div>
     </>
   );

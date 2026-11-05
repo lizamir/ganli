@@ -1,9 +1,11 @@
 "use client";
 
-import EventForm from "@/components/app/EventForm";
-import { Card, Disc, KIND, PageHead } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import EventForm from "@/components/dashboard/care/EventForm";
+import { Card, Disc, PageHead } from "@/components/dashboard/ui";
+import { KIND } from "@/components/dashboard/care/careKinds";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** Log a care event, and see the latest ones. */
 export default function StaffLog() {
   const { data } = useGanli();
   if (!data) return null;

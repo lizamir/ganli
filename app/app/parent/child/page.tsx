@@ -1,8 +1,9 @@
 "use client";
 
-import { Avatar, Badge, Card, PageHead } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import { Avatar, Badge, Card, PageHead } from "@/components/dashboard/ui";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** The child's details and care notes. */
 export default function ChildCard() {
   const { data, profile } = useGanli();
   if (!data || !profile) return null;

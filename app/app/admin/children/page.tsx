@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Avatar, Badge, Card, PageHead } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import { Avatar, Badge, Card, PageHead } from "@/components/dashboard/ui";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** All the children and staff. */
 export default function AdminChildren() {
   const { data } = useGanli();
   const [q, setQ] = useState("");
@@ -15,7 +16,15 @@ export default function AdminChildren() {
       <PageHead
         kicker="ילדים ומשפחות"
         title={`${data.children.length} ילדים במשפחתון`}
-        actions={<input className="search" placeholder="חיפוש ילד או הורה" value={q} onChange={(e) => setQ(e.target.value)} aria-label="חיפוש" />}
+        actions={
+          <input
+            className="search"
+            placeholder="חיפוש ילד או הורה"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            aria-label="חיפוש"
+          />
+        }
       />
       <div className="grid-2">
         <Card title="ילדים">
@@ -40,7 +49,13 @@ export default function AdminChildren() {
                   </td>
                   <td data-label="תאריך לידה">{c.birth}</td>
                   <td data-label="הורים">{c.parents}</td>
-                  <td data-label="היום">{c.status === "present" ? <Badge tone="ok">הגיע/ה {c.arrival}</Badge> : <Badge tone="mute">נעדר/ת</Badge>}</td>
+                  <td data-label="היום">
+                    {c.status === "present" ? (
+                      <Badge tone="ok">הגיע/ה {c.arrival}</Badge>
+                    ) : (
+                      <Badge tone="mute">נעדר/ת</Badge>
+                    )}
+                  </td>
                   <td data-label="הערות" className="cell-tags">
                     {c.allergy && <Badge tone="bad">אלרגיה: {c.allergy}</Badge>}
                     {c.consentMissing && <Badge tone="warn">חסר אישור צילום</Badge>}

@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Scene from "@/components/app/Scene";
-import { Badge, Empty, PageHead } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import Scene from "@/components/dashboard/care/Scene";
+import { Badge, Empty, PageHead } from "@/components/dashboard/ui";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** The child's photo album. */
 export default function ParentPhotos() {
   const { data, profile } = useGanli();
   const [tab, setTab] = useState<"group" | "mine">("mine");
@@ -62,7 +63,9 @@ export default function ParentPhotos() {
           })}
         </div>
       )}
-      <p className="hint-line">תמונה נוספת לאלבום הפרטי רק כשההורה בוחר בה. הסרה מהאלבום לא מוחקת את התמונה הקבוצתית.</p>
+      <p className="hint-line">
+        תמונה נוספת לאלבום הפרטי רק כשההורה בוחר בה. הסרה מהאלבום לא מוחקת את התמונה הקבוצתית.
+      </p>
     </>
   );
 }

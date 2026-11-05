@@ -1,0 +1,156 @@
+/* ───────────── Day ribbon ───────────── */
+.ribbon-day {
+  position: relative;
+  --label: 76px;
+}
+.rd-hours {
+  position: relative;
+  height: 22px;
+  margin-inline-start: var(--label);
+  font: 500 0.75rem var(--font-display);
+  color: #6a584c;
+}
+.rd-hours span {
+  position: absolute;
+  transform: translateX(50%);
+}
+.rd-lanes {
+  position: relative;
+  display: grid;
+  gap: 6px;
+}
+.rd-lane {
+  display: grid;
+  grid-template-columns: var(--label) 1fr;
+  align-items: center;
+  border-radius: 12px;
+  min-height: 34px;
+}
+.rd-label {
+  font: 600 0.875rem var(--font-display);
+  padding-inline-start: 12px;
+}
+.rd-track {
+  position: relative;
+  height: 34px;
+}
+.rd-bar,
+.rd-dot {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.rd-bar {
+  height: 18px;
+  border-radius: 9px;
+}
+.rd-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-inline-start: -8px;
+}
+.rd-bar.on,
+.rd-dot.on {
+  box-shadow:
+    0 0 0 3px #fff,
+    0 0 0 5px var(--cocoa-deep);
+}
+.rd-future {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  inset-inline-end: 0;
+  background: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.75) 0 6px, rgba(255, 255, 255, 0.35) 6px 12px);
+  border-radius: 8px;
+  pointer-events: none;
+}
+.rd-now {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--tomato);
+  pointer-events: none;
+}
+.rd-now em {
+  position: absolute;
+  bottom: 100%;
+  transform: translateX(50%);
+  font: 600 0.75rem var(--font-display);
+  font-style: normal;
+  color: #fff;
+  background: var(--tomato-ink);
+  padding: 3px 8px;
+  border-radius: 8px;
+  white-space: nowrap;
+  margin-bottom: 4px;
+}
+.ribbon-day.compact .rd-lanes {
+  gap: 2px;
+}
+.ribbon-day.compact .rd-lane {
+  grid-template-columns: 1fr;
+  min-height: 0;
+  background: #f3ece2;
+  border-radius: 4px;
+}
+.ribbon-day.compact .rd-track {
+  height: 7px;
+}
+.ribbon-day.compact .rd-bar {
+  height: 7px;
+  border-radius: 4px;
+}
+.ribbon-day.compact .rd-dot {
+  width: 7px;
+  height: 7px;
+  margin-inline-start: -3px;
+}
+.ribbon-day.compact .rd-future {
+  top: 0;
+  bottom: 0;
+  border-radius: 4px;
+  background: rgba(243, 236, 226, 0.85);
+}
+.ribbon-day.compact .rd-now {
+  top: -2px;
+  bottom: -2px;
+}
+
+.ribbon-detail {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 18px;
+  background: #f6efe3;
+}
+.ribbon-detail > div {
+  flex: 1;
+  display: grid;
+}
+.ribbon-detail b {
+  font: 600 1.0625rem var(--font-display);
+}
+.ribbon-detail span {
+  color: #6a584c;
+  font-size: 0.9375rem;
+}
+.plate {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  flex: none;
+  background: conic-gradient(var(--mustard) var(--fill), #fff 0);
+  box-shadow:
+    inset 0 0 0 6px #fff,
+    0 0 0 2px var(--wood);
+}

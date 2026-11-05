@@ -1,13 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { Gveret_Levin } from "next/font/google";
 import localFont from "next/font/local";
-import "./globals.css";
-import "./site.css";
-import "./dashboard.css";
-import { GanliProvider } from "@/lib/app/store";
-import AccessibilityToolbar from "@/components/AccessibilityToolbar";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
+import "./styles/index.css";
+import { GanliProvider } from "@/lib/data/GanliProvider";
+import AccessibilityToolbar from "@/components/common/AccessibilityToolbar";
+import SmoothScroll from "@/components/common/SmoothScroll";
+import Cursor from "@/components/common/Cursor";
 
 // Heebo is the main typeface for everything (UI, body and headlines).
 // It comes from the supplied Heebo.zip, as one variable font file (weights 100 to 900).
@@ -29,7 +27,8 @@ const hand = Gveret_Levin({
 
 export const metadata: Metadata = {
   title: "גנלי | משחקים. לומדים. ביחד.",
-  description: "גנלי — גן ומעון לגיל הרך. קבוצות קטנות, צוות חם ולמידה דרך משחק לגילאי 6 חודשים עד 3 שנים, עם אזור אישי להורים, לצוות ולמנהלת.",
+  description:
+    "גנלי — גן ומעון לגיל הרך. קבוצות קטנות, צוות חם ולמידה דרך משחק לגילאי 6 חודשים עד 3 שנים, עם אזור אישי להורים, לצוות ולמנהלת.",
 };
 
 export const viewport: Viewport = {
@@ -42,6 +41,7 @@ export const viewport: Viewport = {
 // and restores the visitor's accessibility choices without a flash.
 const BOOT = `(function(){try{var d=document.documentElement;d.classList.add('js');var s=JSON.parse(localStorage.getItem('ganli-a11y')||'{}');if(s.size)d.dataset.size=s.size;if(s.contrast)d.classList.add('a11y-contrast');if(s.motion)d.classList.add('a11y-nomotion');if(s.links)d.classList.add('a11y-links');if(s.spacing)d.classList.add('a11y-spacing')}catch(e){document.documentElement.classList.add('js')}})();`;
 
+/** The page shell of every route: fonts, boot script, skip link and the site-wide tools. */
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="he" dir="rtl" className={`${heebo.variable} ${hand.variable}`} suppressHydrationWarning>

@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Avatar, Badge, Card, PageHead, shekel } from "@/components/app/ui";
-import { useGanli } from "@/lib/app/store";
+import ChargesTable from "@/components/dashboard/admin/finance/ChargesTable";
+import { Card, PageHead } from "@/components/dashboard/ui";
+import { billedAmount, receivedAmount } from "@/lib/domain/finance";
+import { shekel } from "@/lib/format";
+import { useGanli } from "@/lib/data/GanliProvider";
 
+/** This month's charges and payments. */
 export default function AdminFinance() {
   const { data, actions } = useGanli();
   const [busy, setBusy] = useState<string | null>(null);
@@ -11,8 +15,8 @@ export default function AdminFinance() {
   if (!data) return null;
 
   const month = data.charges.filter((c) => c.period === data.currentPeriod);
-  const total = month.reduce((s, c) => s + c.amount, 0);
-  const received = month.reduce((s, c) => s + c.paid, 0);
+  const total = billedAmount(month);
+  const received = receivedAmount(month);
   const child = (id: string) => data.children.find((c) => c.id === id)!;
 
   const record = async (id: string, amount: number) => {
@@ -48,53 +52,10 @@ export default function AdminFinance() {
             {error}
           </p>
         )}
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ילד</th>
-              <th>הורים</th>
-              <th>סכום</th>
-              <th>שולם</th>
-              <th>מועד</th>
-              <th>מצב</th>
-              <th>מסמך</th>
-              <th>
-                <span className="sr-only">פעולות</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {month.map((c) => {
-              const k = child(c.childId);
-              const done = c.paid >= c.amount;
-              const late = !done && c.late;
-              return (
-                <tr key={c.id}>
-                  <td data-label="ילד">
-                    <span className="cell-person">
-                      <Avatar name={k.name} color={k.color} size={30} />
-                      {k.name}
-                    </span>
-                  </td>
-                  <td data-label="הורים">{k.parents}</td>
-                  <td data-label="סכום">{shekel(c.amount)}</td>
-                  <td data-label="שולם">{shekel(c.paid)}</td>
-                  <td data-label="מועד">{c.due}</td>
-                  <td data-label="מצב">{done ? <Badge tone="ok">שולם</Badge> : late ? <Badge tone="bad">באיחור</Badge> : <Badge tone="warn">ממתין</Badge>}</td>
-                  <td data-label="מסמך">{c.doc || "—"}</td>
-                  <td>
-                    {!done && (
-                      <button type="button" className="mini-btn" disabled={busy === c.id} onClick={() => record(c.id, c.amount - c.paid)}>
-                        {busy === c.id ? "רושמים…" : "רישום תשלום"}
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <p className="hint-line">חיוב ותשלום הם רשומות נפרדות. החיבור להפקת חשבוניות עדיין לא נבחר, ולכן מספר המסמך כאן לדוגמה.</p>
+        <ChargesTable month={month} child={child} busy={busy} onRecord={record} />
+        <p className="hint-line">
+          חיוב ותשלום הם רשומות נפרדות. החיבור להפקת חשבוניות עדיין לא נבחר, ולכן מספר המסמך כאן לדוגמה.
+        </p>
       </Card>
     </>
   );
