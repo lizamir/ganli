@@ -18,5 +18,12 @@ export default function QrCode({ value, label }: { value: string; label: string 
       live = false;
     };
   }, [value]);
-  return <div className="qr-big" role="img" aria-label={label} dangerouslySetInnerHTML={{ __html: svg }} />;
+  return (
+    <div
+      className="w-[210px] flex-none rounded-[24px] bg-white p-[18px] shadow-block [&_svg]:block [&_svg]:h-auto [&_svg]:w-full"
+      role="img"
+      aria-label={label}
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  );
 }

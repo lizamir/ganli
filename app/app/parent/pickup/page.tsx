@@ -2,7 +2,26 @@
 
 import { useState } from "react";
 import QrCode from "@/components/dashboard/care/QrCode";
-import { Avatar, Badge, Card, PageHead } from "@/components/dashboard/ui";
+import {
+  Avatar,
+  Badge,
+  Card,
+  PageHead,
+  fieldLabel,
+  fieldsetPlain,
+  formMessage,
+  formStack,
+  grid2,
+  hintLine,
+  legendText,
+  personBadge,
+  personName,
+  personRow,
+  pickButton,
+  pickRow,
+  plainList,
+  plainSelect,
+} from "@/components/dashboard/ui";
 import { authorizedLabel, pickupCode, qrPayload } from "@/lib/domain/pickup";
 import { useGanli } from "@/lib/data/GanliProvider";
 
@@ -34,32 +53,37 @@ export default function ParentPickup() {
   return (
     <>
       <PageHead kicker="איסוף" title={`איסוף של ${child.name}`} actions={<Badge tone="ok">קוד תקף להיום</Badge>} />
-      <div className="grid-2">
+      <div className={grid2}>
         <Card title="קוד האיסוף להיום">
-          <div className="pickup-card">
+          <div className="flex flex-wrap items-center gap-7 mobile:justify-center">
             <QrCode value={qrPayload(child.id)} label={`קוד QR לאיסוף של ${child.name}`} />
-            <div className="pickup-code">
-              <span>או לומר לצוות את הקוד</span>
-              <b dir="ltr">
+            <div className="grid min-w-[200px] flex-1 gap-[6px]">
+              <span className="font-semibold text-muted">או לומר לצוות את הקוד</span>
+              <b
+                dir="ltr"
+                className="tracking-[0.08em] text-cocoa-deep [font:900_2.8rem/1_var(--font-display)] mobile:text-[2.2rem]"
+              >
                 {code.slice(0, 3)} {code.slice(3)}
               </b>
-              <small>הקוד מתחדש מדי יום. הצוות מאמת אותו מול הרשימה לפני שהילד יוצא.</small>
+              <small className="text-[0.9rem] text-muted">
+                הקוד מתחדש מדי יום. הצוות מאמת אותו מול הרשימה לפני שהילד יוצא.
+              </small>
             </div>
           </div>
         </Card>
 
         <Card title="מי אוסף היום?" note="אפשר לשנות עד רגע האיסוף">
-          <form className="event-form" onSubmit={save}>
-            <fieldset>
-              <legend>מורשים לאיסוף</legend>
-              <div className="detail-picks">
+          <form className={formStack} onSubmit={save}>
+            <fieldset className={fieldsetPlain}>
+              <legend className={legendText}>מורשים לאיסוף</legend>
+              <div className={pickRow}>
                 {child.authorized.map((a) => {
                   const label = authorizedLabel(a);
                   return (
                     <button
                       type="button"
                       key={label}
-                      className={chosen === label ? "on" : undefined}
+                      className={pickButton(chosen === label)}
                       aria-pressed={chosen === label}
                       onClick={() => setWho(label)}
                     >
@@ -69,22 +93,22 @@ export default function ParentPickup() {
                 })}
               </div>
             </fieldset>
-            <label>
+            <label className={fieldLabel}>
               שעה משוערת
-              <select value={time} onChange={(e) => setTime(e.target.value)} className="plain-select">
+              <select value={time} onChange={(e) => setTime(e.target.value)} className={plainSelect}>
                 {TIMES.map((t) => (
                   <option key={t}>{t}</option>
                 ))}
               </select>
             </label>
             {msg && (
-              <p className={msg.ok ? "form-ok" : "form-error"} role="status">
+              <p className={formMessage(msg.ok)} role="status">
                 {msg.text}
               </p>
             )}
-            <button className="btn btn-primary">שמירה</button>
+            <button className="btn btn-primary justify-center">שמירה</button>
             {planned && !msg && (
-              <p className="hint-line">
+              <p className={hintLine}>
                 כרגע רשום: {planned.who} בסביבות {planned.time}.
               </p>
             )}
@@ -92,20 +116,22 @@ export default function ParentPickup() {
         </Card>
       </div>
       <Card title="רשימת המורשים">
-        <ul className="people">
+        <ul className={plainList}>
           {child.authorized.map((a) => (
-            <li key={a.name + a.relation}>
-              <b>
+            <li key={a.name + a.relation} className={personRow}>
+              <b className={personName}>
                 {a.name} · {a.relation}
               </b>
-              <Badge tone="ok">מורשה איסוף</Badge>
+              <Badge tone="ok" className={personBadge}>
+                מורשה איסוף
+              </Badge>
             </li>
           ))}
         </ul>
-        <p className="hint-line">
+        <p className={hintLine}>
           להוספת מורשה (למשל שכן או בן משפחה) פנו למנהלת. בקשת שינוי באיסוף אינה מחליפה אישור של הצוות בפועל.
         </p>
-        {mode === "supabase" && <p className="hint-line">במצב שרת, תכנון האיסוף עדיין לא נשמר. הקוד והרשימה עובדים.</p>}
+        {mode === "supabase" && <p className={hintLine}>במצב שרת, תכנון האיסוף עדיין לא נשמר. הקוד והרשימה עובדים.</p>}
       </Card>
     </>
   );

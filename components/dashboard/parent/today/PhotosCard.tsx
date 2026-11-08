@@ -7,11 +7,11 @@ import type { Photo } from "@/lib/domain/types";
 export default function PhotosCard({ photos }: { photos: Photo[] }) {
   return (
     <Card title="תמונות מהיום" note={<Link href="/app/parent/photos/">לכל האלבום ←</Link>}>
-      <div className="photo-row">
+      <div className="grid grid-cols-[repeat(3,1fr)] gap-2.5">
         {photos.slice(0, 3).map((p) => (
-          <figure key={p.id}>
-            <Scene name={p.scene} label={p.caption} />
-            <figcaption>{p.caption}</figcaption>
+          <figure key={p.id} className="m-0">
+            <Scene name={p.scene} label={p.caption} className="block aspect-square w-full rounded-[16px]" />
+            <figcaption className="mt-1.5 text-[0.8125rem] text-subtle">{p.caption}</figcaption>
           </figure>
         ))}
       </div>

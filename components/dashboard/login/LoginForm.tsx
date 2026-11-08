@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { fieldLabel, formError, textInput } from "@/components/dashboard/ui";
 import { useGanli } from "@/lib/data/GanliProvider";
 
 /** Email and password sign in, for the connected version. */
@@ -20,10 +21,11 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={submit} className="login-form">
-      <label>
+    <form onSubmit={submit} className="mb-[26px] grid gap-3.5">
+      <label className={fieldLabel}>
         דוא״ל
         <input
+          className={textInput}
           type="email"
           dir="ltr"
           autoComplete="email"
@@ -32,9 +34,10 @@ export default function LoginForm() {
           required
         />
       </label>
-      <label>
+      <label className={fieldLabel}>
         סיסמה
         <input
+          className={textInput}
           type="password"
           dir="ltr"
           autoComplete="current-password"
@@ -44,14 +47,14 @@ export default function LoginForm() {
         />
       </label>
       {error && (
-        <p className="form-error" role="alert">
+        <p className={formError} role="alert">
           {error}
         </p>
       )}
-      <button className="btn btn-primary" disabled={busy}>
+      <button className="btn btn-primary justify-center" disabled={busy}>
         {busy ? "רגע…" : "כניסה"}
       </button>
-      {status === "needsSetup" && <p className="form-error">החשבון עוד לא משויך למשפחתון. בקשו הזמנה מהמנהלת.</p>}
+      {status === "needsSetup" && <p className={formError}>החשבון עוד לא משויך למשפחתון. בקשו הזמנה מהמנהלת.</p>}
     </form>
   );
 }

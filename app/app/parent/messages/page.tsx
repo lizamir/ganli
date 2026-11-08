@@ -5,7 +5,7 @@ import AnnouncementList from "@/components/dashboard/parent/messages/Announcemen
 import MessageCard from "@/components/dashboard/parent/messages/MessageCard";
 import MyInquiries from "@/components/dashboard/parent/messages/MyInquiries";
 import UpcomingRsvp from "@/components/dashboard/parent/messages/UpcomingRsvp";
-import { PageHead } from "@/components/dashboard/ui";
+import { PageHead, grid2, stack } from "@/components/dashboard/ui";
 import { useGanli } from "@/lib/data/GanliProvider";
 
 /** Messages between the parent and the daycare, and event answers. */
@@ -38,12 +38,12 @@ export default function ParentMessages() {
   return (
     <>
       <PageHead kicker="הודעות" title="הודעות מהמשפחתון ואליו" />
-      <div className="grid-2">
-        <div className="stack">
+      <div className={grid2}>
+        <div className={stack}>
           <AnnouncementList announcements={data.announcements} onRead={actions.markRead} />
         </div>
 
-        <div className="stack">
+        <div className={stack}>
           <MessageCard
             text={text}
             onText={setText}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Card, Empty, PageHead } from "@/components/dashboard/ui";
+import { Badge, Card, Empty, PageHead, factTerm, factValue, facts, grid2 } from "@/components/dashboard/ui";
 import { shekel } from "@/lib/format";
 import { useGanli } from "@/lib/data/GanliProvider";
 
@@ -14,24 +14,24 @@ export default function ParentPayments() {
   return (
     <>
       <PageHead kicker="תשלומים" title="החשבון של המשפחה" />
-      <div className="grid-2">
+      <div className={grid2}>
         <Card tint={open ? "var(--mustard-soft)" : "var(--teal-soft)"}>
-          <div className="big-number">
-            <span>{open ? "יתרה לתשלום" : "הכל שולם"}</span>
-            <b>{shekel(open)}</b>
-            <small>
+          <div className="grid gap-1.5">
+            <span className="font-heading text-[1rem]/[normal] font-semibold">{open ? "יתרה לתשלום" : "הכל שולם"}</span>
+            <b className="font-heading text-[3.375rem]/none font-bold text-cocoa-deep">{shekel(open)}</b>
+            <small className="text-[0.9375rem] text-[#6f5d52]">
               {open ? "התשלום מתבצע בהעברה בנקאית. הקבלה תופיע כאן לאחר רישום התשלום." : "תודה! אין חיובים פתוחים."}
             </small>
           </div>
         </Card>
         <Card title="פרטים לתשלום">
-          <dl className="facts">
-            <dt>אמצעי תשלום</dt>
-            <dd>העברה בנקאית</dd>
-            <dt>מועד חיוב</dt>
-            <dd>ה־10 בכל חודש</dd>
-            <dt>חיוב חודשי</dt>
-            <dd>{shekel(1800)}</dd>
+          <dl className={facts}>
+            <dt className={factTerm}>אמצעי תשלום</dt>
+            <dd className={factValue}>העברה בנקאית</dd>
+            <dt className={factTerm}>מועד חיוב</dt>
+            <dd className={factValue}>ה־10 בכל חודש</dd>
+            <dt className={factTerm}>חיוב חודשי</dt>
+            <dd className={factValue}>{shekel(1800)}</dd>
           </dl>
         </Card>
       </div>
@@ -39,7 +39,7 @@ export default function ParentPayments() {
         {charges.length === 0 ? (
           <Empty>אין חיובים להצגה.</Empty>
         ) : (
-          <table className="table">
+          <table className="data-table">
             <thead>
               <tr>
                 <th>תקופה</th>

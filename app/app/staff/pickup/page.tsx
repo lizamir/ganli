@@ -4,7 +4,17 @@ import { useState } from "react";
 import CodeCheckCard from "@/components/dashboard/staff/pickup/CodeCheckCard";
 import VerifyPanel from "@/components/dashboard/staff/pickup/VerifyPanel";
 import WaitingList from "@/components/dashboard/staff/pickup/WaitingList";
-import { Badge, Card, PageHead } from "@/components/dashboard/ui";
+import {
+  Badge,
+  Card,
+  PageHead,
+  grid2,
+  personBadge,
+  personDetail,
+  personName,
+  personRow,
+  plainList,
+} from "@/components/dashboard/ui";
 import { authorizedLabel, pickupCode } from "@/lib/domain/pickup";
 import { useGanli } from "@/lib/data/GanliProvider";
 import type { Child } from "@/lib/domain/types";
@@ -58,7 +68,7 @@ export default function StaffPickup() {
   return (
     <>
       <PageHead kicker="איסוף" title="אימות איסוף" actions={<Badge tone="cool">{left.length} נאספו היום</Badge>} />
-      <div className="grid-2">
+      <div className={grid2}>
         <CodeCheckCard
           code={code}
           onCode={setCode}
@@ -85,12 +95,14 @@ export default function StaffPickup() {
 
       {left.length > 0 && (
         <Card title="נאספו היום">
-          <ul className="people">
+          <ul className={plainList}>
             {left.map((c) => (
-              <li key={c.id}>
-                <b>{c.name}</b>
-                <span>יצא/ה ב־{c.pickup}</span>
-                <Badge tone="ok">נאסף/ה</Badge>
+              <li key={c.id} className={personRow}>
+                <b className={personName}>{c.name}</b>
+                <span className={personDetail}>יצא/ה ב־{c.pickup}</span>
+                <Badge tone="ok" className={personBadge}>
+                  נאסף/ה
+                </Badge>
               </li>
             ))}
           </ul>

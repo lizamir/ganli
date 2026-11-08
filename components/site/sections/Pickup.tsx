@@ -1,8 +1,14 @@
 "use client";
 
+import { cn } from "@/lib/ui/cn";
+import { section } from "@/components/site/ui";
 import { useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 import { useMotionOff } from "@/lib/stores/a11y";
+
+const step = "flex items-center gap-[14px]";
+const stepNo = "grid h-[34px] w-[34px] flex-none place-items-center rounded-[50%] bg-cocoa-deep text-[1rem] text-cream";
+const chatBubble = "w-fit rounded-[18px] px-4 py-2.5 text-[1rem] leading-[1.4] shadow-[0_3px_0_rgba(62,50,43,0.1)]";
 
 /**
  * The pickup tag: a child's card that hangs from a cord, swings like a pendulum, can be dragged and let go,
@@ -97,37 +103,40 @@ export default function Pickup() {
   };
 
   return (
-    <section className="section pickup" id="pickup" aria-labelledby="pickup-title">
-      <div className="container pickup-grid">
-        <div className="pickup-copy reveal">
+    <section className={cn(section, "overflow-hidden bg-cream")} id="pickup" aria-labelledby="pickup-title">
+      <div className="container grid grid-cols-[1.1fr_0.9fr] items-center gap-[clamp(30px,6vw,90px)] upto-860:grid-cols-[1fr]">
+        <div className="reveal">
           <p className="eyebrow">איסוף בטוח</p>
           <h2 id="pickup-title" className="title">
             ילד אחד.
             <br />
-            <mark className="mk">קוד אחד</mark>, רק מי שמורשה.
+            <mark className="rounded-[0.1em] px-[0.1em] text-inherit [background:linear-gradient(transparent_52%,var(--mustard)_52%_92%,transparent_92%)]">
+              קוד אחד
+            </mark>
+            , רק מי שמורשה.
           </h2>
           <p className="lead">
             לכל ילד כרטיס איסוף אישי. ההורה מציג קוד, הצוות סורק, והמערכת מאשרת רק את מי שרשום ברשימה. בלי לשאול שוב מי
             זה.
           </p>
-          <ul className="pickup-steps">
-            <li>
-              <b>1</b> ההורה מקבל את הכרטיס באפליקציה
+          <ul className="[margin:28px_0_0] grid list-none gap-3 p-0 text-[1.12rem]">
+            <li className={step}>
+              <b className={stepNo}>1</b> ההורה מקבל את הכרטיס באפליקציה
             </li>
-            <li>
-              <b>2</b> הצוות סורק בכניסה לקבוצה
+            <li className={step}>
+              <b className={stepNo}>2</b> הצוות סורק בכניסה לקבוצה
             </li>
-            <li>
-              <b>3</b> רק מורשים מסומנים באישור ירוק
+            <li className={step}>
+              <b className={stepNo}>3</b> רק מורשים מסומנים באישור ירוק
             </li>
           </ul>
-          <div className="pickup-chat" aria-hidden="true">
-            <p className="pb me">אני בדרך לאסוף את נועה</p>
-            <p className="pb them">מחכות לך. נועה כבר שמה נעליים</p>
+          <div className="mt-7 grid max-w-[360px] gap-2" aria-hidden="true">
+            <p className={cn(chatBubble, "rounded-es-[4px] bg-paper")}>אני בדרך לאסוף את נועה</p>
+            <p className={cn(chatBubble, "ms-auto rounded-ee-[4px] bg-teal-soft")}>מחכות לך. נועה כבר שמה נעליים</p>
           </div>
         </div>
 
-        <div className="tag-stage">
+        <div className="relative grid min-h-[520px] [align-content:start] justify-items-center">
           <div className="tag-rig" ref={rig}>
             <span className="tag-cord" aria-hidden="true" />
             <span className="tag-clip" aria-hidden="true" />
@@ -174,10 +183,18 @@ export default function Pickup() {
               </div>
             </div>
           </div>
-          <button type="button" className="tag-flip" onClick={() => setFlipped((f) => !f)} aria-pressed={flipped}>
+          <button
+            type="button"
+            className="mt-5 inline-flex cursor-pointer items-center gap-2 rounded-[99px] border-2 border-cocoa-deep px-[18px] py-[9px] text-cocoa-deep [background:transparent] [font:800_0.92rem/1_var(--font-body)] hover:bg-cocoa-deep hover:text-cream"
+            onClick={() => setFlipped((f) => !f)}
+            aria-pressed={flipped}
+          >
             <span aria-hidden="true">↻</span> {flipped ? "חזרה לכרטיס" : "הפכו את הכרטיס"}
           </button>
-          <p className="tag-hint hand" aria-hidden="true">
+          <p
+            className="hand absolute end-[4%] top-[60px] [transform:rotate(6deg)] text-[1.5rem] text-tomato-ink upto-860:hidden"
+            aria-hidden="true"
+          >
             משכו אותו ושחררו
           </p>
         </div>

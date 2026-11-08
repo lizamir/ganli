@@ -1,8 +1,17 @@
 import { useMemo } from "react";
 import DayRibbon from "@/components/dashboard/care/DayRibbon";
 import Scene from "@/components/dashboard/care/Scene";
+import PayBar from "./PayBar";
 import { Avatar, Badge } from "@/components/dashboard/ui";
 import { createDemoSnapshot } from "@/lib/mock/demoSnapshot";
+
+const mock = "grid min-h-[380px] [align-content:start] gap-[14px] bg-app p-[22px] mobile:min-h-0 mobile:p-[14px]";
+const mockCard = "grid gap-[14px] rounded-[18px] bg-paper p-[18px]";
+const mockHeader = "flex items-center justify-between gap-2.5";
+const mockTitle = "text-[1.15rem] text-cocoa-deep";
+const tile = "grid gap-1 rounded-[18px] p-4 text-white";
+const tileLabel = "text-[0.85rem] font-bold";
+const tileValue = "[font:900_2.2rem/1_var(--font-display)]";
 
 export type Tab = "parent" | "staff" | "admin";
 
@@ -14,14 +23,16 @@ export default function RoleMock({ tab }: { tab: Tab }) {
 
   if (tab === "parent") {
     return (
-      <div className="mock mock-parent">
-        <div className="mock-photo">
-          <Scene name="sand" label="נועה בארגז חול" />
-          <span>התמונה האחרונה · 13:52</span>
+      <div className={mock}>
+        <div className="relative h-[176px] overflow-hidden rounded-[20px]">
+          <Scene name="sand" label="נועה בארגז חול" className="absolute inset-0 h-full w-full" />
+          <span className="absolute start-3 top-3 rounded-[999px] bg-mustard px-[11px] py-[5px] text-[0.8rem] font-bold text-[#3e2a08]">
+            התמונה האחרונה · 13:52
+          </span>
         </div>
-        <div className="mock-card">
-          <header>
-            <b>היום של נועה</b>
+        <div className={mockCard}>
+          <header className={mockHeader}>
+            <b className={mockTitle}>היום של נועה</b>
             <Badge tone="ok" dot>
               בגן עכשיו
             </Badge>
@@ -33,12 +44,17 @@ export default function RoleMock({ tab }: { tab: Tab }) {
   }
   if (tab === "staff") {
     return (
-      <div className="mock mock-staff">
-        <div className="mock-alert">אלרגיה לאגוזים: יובל. ארוחת ארבע ללא אגוזים</div>
+      <div className={mock}>
+        <div className="rounded-[14px] bg-[#ffd9d4] px-[14px] py-2.5 text-[0.92rem] font-bold text-[#8f1d12]">
+          אלרגיה לאגוזים: יובל. ארוחת ארבע ללא אגוזים
+        </div>
         {data.children.slice(0, 5).map((c) => (
-          <div className="mock-row" key={c.id}>
+          <div
+            className="grid grid-cols-[34px_70px_1fr] items-center gap-3 rounded-[16px] bg-paper px-[14px] py-2.5 mobile:grid-cols-[34px_54px_1fr] mobile:gap-2 mobile:px-2.5 mobile:py-2"
+            key={c.id}
+          >
             <Avatar name={c.name} color={c.color} size={34} />
-            <b>{c.name}</b>
+            <b className="text-[1rem] text-cocoa-deep">{c.name}</b>
             <DayRibbon
               compact
               arrival={c.arrival}
@@ -51,31 +67,27 @@ export default function RoleMock({ tab }: { tab: Tab }) {
     );
   }
   return (
-    <div className="mock mock-admin">
-      <div className="mock-tiles">
-        <div style={{ background: "var(--teal-deep)" }}>
-          <small>נוכחים</small>
-          <b>8/10</b>
+    <div className={mock}>
+      <div className="grid grid-cols-[repeat(3,1fr)] gap-3">
+        <div className={tile} style={{ background: "var(--teal-deep)" }}>
+          <small className={tileLabel}>נוכחים</small>
+          <b className={tileValue}>8/10</b>
         </div>
-        <div style={{ background: "var(--tomato-btn)" }}>
-          <small>צוות</small>
-          <b>2/2</b>
+        <div className={tile} style={{ background: "var(--tomato-btn)" }}>
+          <small className={tileLabel}>צוות</small>
+          <b className={tileValue}>2/2</b>
         </div>
-        <div style={{ background: "var(--mustard)", color: "#3e2a08" }}>
-          <small>פניות</small>
-          <b>3</b>
+        <div className={tile} style={{ background: "var(--mustard)", color: "#3e2a08" }}>
+          <small className={tileLabel}>פניות</small>
+          <b className={tileValue}>3</b>
         </div>
       </div>
-      <div className="mock-card">
-        <header>
-          <b>תשלומי אוקטובר</b>
-          <span>6 מתוך 10 שולמו</span>
+      <div className={mockCard}>
+        <header className={mockHeader}>
+          <b className={mockTitle}>תשלומי אוקטובר</b>
+          <span className="text-[0.85rem] text-muted">6 מתוך 10 שולמו</span>
         </header>
-        <div className="paybar">
-          <span style={{ flex: 6, background: "#5fb59a" }} />
-          <span style={{ flex: 3, background: "var(--mustard)" }} />
-          <span style={{ flex: 1, background: "var(--tomato)" }} />
-        </div>
+        <PayBar />
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { STORY } from "@/content";
 import { useMotionOff } from "@/lib/stores/a11y";
 import { useOnScreen, useScrollProgress } from "@/lib/hooks/scroll";
 import { LogoMark } from "@/components/common/Shapes";
+import { cn } from "@/lib/ui/cn";
 
 const BlocksScene = dynamic(() => import("@/components/site/scene/BlocksScene"), {
   ssr: false,
@@ -61,7 +62,7 @@ export default function Story() {
   const chapter = STORY[motionOff ? 0 : active];
 
   return (
-    <section ref={ref} id="story" className={`story${motionOff ? " static" : ""}`} aria-labelledby="story-title">
+    <section ref={ref} id="story" className={cn("story", motionOff && "static")} aria-labelledby="story-title">
       <div className="story-sticky" style={{ ["--bg" as string]: motionOff ? "var(--cream)" : chapter.color }}>
         <div className="container story-grid">
           <div className="story-copy">
@@ -71,7 +72,7 @@ export default function Story() {
 
             <div className="chapters">
               {STORY.map((c, i) => (
-                <article key={c.no} className={`chapter${!motionOff && i === active ? " on" : ""}`}>
+                <article key={c.no} className={cn("chapter", !motionOff && i === active && "on")}>
                   <h2 className="title">
                     {c.title.map((line, j) => (
                       <span className="line" key={j}>

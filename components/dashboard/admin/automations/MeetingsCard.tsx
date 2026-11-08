@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Card, Empty } from "@/components/dashboard/ui";
+import { Card, Empty, LinkButton, MessageHeader, plainList } from "@/components/dashboard/ui";
 import { downloadIcs, googleCalendarLink, waLink, waPhone } from "@/lib/automations/calendar";
 import { hebDate } from "@/lib/automations/schedule";
 import { auto } from "@/lib/automations/store";
 import type { Booking } from "@/lib/automations/types";
+import { cn } from "@/lib/ui/cn";
 
 /** Meetings parents booked on the site, with calendar and WhatsApp reminders. */
 export default function MeetingsCard({ upcoming }: { upcoming: Booking[] }) {
@@ -15,17 +16,19 @@ export default function MeetingsCard({ upcoming }: { upcoming: Booking[] }) {
           מופיעה כאן.
         </Empty>
       ) : (
-        <ul className="inquiries">
+        <ul className={cn(plainList, "gap-1")}>
           {upcoming.map((b) => (
-            <li key={b.id}>
-              <div className="msg-top">
-                <b>{b.name}</b>
-                <time>
-                  {hebDate(b.date)} · {b.time}
-                </time>
-              </div>
-              <p>{b.topic}</p>
-              <div className="row-actions">
+            <li key={b.id} className="mb-2 grid gap-2 rounded-[18px] bg-[#faf5ec] p-3.5">
+              <MessageHeader
+                title={b.name}
+                time={
+                  <>
+                    {hebDate(b.date)} · {b.time}
+                  </>
+                }
+              />
+              <p className="text-[#4f3f35]">{b.topic}</p>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
                 <button type="button" className="btn btn-ghost btn-sm" onClick={() => downloadIcs(b)}>
                   זימון (.ics)
                 </button>
@@ -43,9 +46,7 @@ export default function MeetingsCard({ upcoming }: { upcoming: Booking[] }) {
                 >
                   תזכורת בוואטסאפ
                 </a>
-                <button type="button" className="link-btn" onClick={() => auto.cancel(b.id)}>
-                  ביטול
-                </button>
+                <LinkButton onClick={() => auto.cancel(b.id)}>ביטול</LinkButton>
               </div>
             </li>
           ))}

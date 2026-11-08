@@ -1,9 +1,24 @@
+import { cn } from "@/lib/ui/cn";
 import type { Photo } from "@/lib/domain/types";
 
 // Flat illustrations standing in for daycare photos (the demo has no real images).
-export default function Scene({ name, label }: { name: Photo["scene"] | "party"; label?: string }) {
+export default function Scene({
+  name,
+  label,
+  className,
+}: {
+  name: Photo["scene"] | "party";
+  label?: string;
+  className?: string;
+}) {
   return (
-    <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" className="scene" role="img" aria-label={label}>
+    <svg
+      viewBox="0 0 400 300"
+      preserveAspectRatio="xMidYMid slice"
+      className={cn("scene", className)}
+      role="img"
+      aria-label={label}
+    >
       {name === "sand" && (
         <>
           <rect width="400" height="300" fill="#bfe3e0" />

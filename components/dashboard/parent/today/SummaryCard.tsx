@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Card } from "@/components/dashboard/ui";
+import { Card, miniButton, rowEnds } from "@/components/dashboard/ui";
+import { cn } from "@/lib/ui/cn";
 import type { PlannedPickup } from "@/lib/domain/types";
 
 /** The automatic day summary, with sharing and a shortcut to today's pickup. */
@@ -14,11 +15,11 @@ export default function SummaryCard({
 }) {
   return (
     <Card title="סיכום היום" note="נבנה אוטומטית מהיומן" tint="var(--teal-soft)">
-      <p className="summary-text">{summary}</p>
-      <div className="row-end" style={{ marginTop: 14 }}>
+      <p className="font-heading text-[1.3rem]/[1.55] font-bold text-cocoa-deep">{summary}</p>
+      <div className={cn(rowEnds, "mt-3.5")}>
         <button
           type="button"
-          className="mini-btn"
+          className={miniButton}
           onClick={() => {
             const text = `${dayLabel} · ${summary}`;
             if (navigator.share) navigator.share({ text }).catch(() => {});
@@ -27,7 +28,7 @@ export default function SummaryCard({
         >
           שיתוף עם המשפחה
         </button>
-        <Link href="/app/parent/pickup/" className="mini-btn">
+        <Link href="/app/parent/pickup/" className={miniButton}>
           {planned ? `איסוף: ${planned.who} · ${planned.time}` : "קוד האיסוף להיום"}
         </Link>
       </div>

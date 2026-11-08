@@ -1,7 +1,25 @@
 "use client";
 
-import { Avatar, Badge, Card, PageHead } from "@/components/dashboard/ui";
+import {
+  Avatar,
+  Badge,
+  Card,
+  PageHead,
+  factTerm,
+  factValue,
+  facts,
+  grid2,
+  hintLine,
+  personBadge,
+  personDetail,
+  personName,
+  personRow,
+  plainList,
+  stack,
+} from "@/components/dashboard/ui";
 import { useGanli } from "@/lib/data/GanliProvider";
+
+const heroDetail = "block text-[0.9375rem] text-subtle";
 
 /** The child's details and care notes. */
 export default function ChildCard() {
@@ -12,57 +30,73 @@ export default function ChildCard() {
   return (
     <>
       <PageHead kicker="כרטיס ילד" title={child.name} />
-      <div className="grid-2">
+      <div className={grid2}>
         <Card>
-          <div className="child-hero">
+          <div className="flex items-center gap-[18px]">
             <Avatar name={child.name} color={child.color} size={84} />
             <div>
-              <b>{child.name}</b>
-              <span>נולדה ב־{child.birth}</span>
-              <span>הורים: {child.parents || "—"}</span>
+              <b className="block font-heading text-[1.875rem]/[normal] font-bold text-cocoa-deep">{child.name}</b>
+              <span className={heroDetail}>נולדה ב־{child.birth}</span>
+              <span className={heroDetail}>הורים: {child.parents || "—"}</span>
             </div>
           </div>
-          <dl className="facts">
-            <dt>אלרגיות</dt>
-            <dd>{child.allergy || "אין אלרגיות ידועות"}</dd>
-            <dt>הנחיות טיפול</dt>
-            <dd>{child.careNotes || "—"}</dd>
-            <dt>איסוף רגיל</dt>
-            <dd>{child.pickup ?? "—"}</dd>
+          <dl className={facts}>
+            <dt className={factTerm}>אלרגיות</dt>
+            <dd className={factValue}>{child.allergy || "אין אלרגיות ידועות"}</dd>
+            <dt className={factTerm}>הנחיות טיפול</dt>
+            <dd className={factValue}>{child.careNotes || "—"}</dd>
+            <dt className={factTerm}>איסוף רגיל</dt>
+            <dd className={factValue}>{child.pickup ?? "—"}</dd>
           </dl>
-          <p className="hint-line">שינוי בפרטי טיפול רגישים נבדק על ידי הצוות לפני שהוא נכנס לתוקף.</p>
+          <p className={hintLine}>שינוי בפרטי טיפול רגישים נבדק על ידי הצוות לפני שהוא נכנס לתוקף.</p>
         </Card>
-        <div className="stack">
+        <div className={stack}>
           <Card title="אנשי קשר ומורשים לאיסוף">
-            <ul className="people">
-              <li>
-                <b>דנה, אמא</b>
-                <span dir="ltr">050-000-0001</span>
-                <Badge tone="ok">מורשית איסוף</Badge>
+            <ul className={plainList}>
+              <li className={personRow}>
+                <b className={personName}>דנה, אמא</b>
+                <span className={personDetail} dir="ltr">
+                  050-000-0001
+                </span>
+                <Badge tone="ok" className={personBadge}>
+                  מורשית איסוף
+                </Badge>
               </li>
-              <li>
-                <b>איל, אבא</b>
-                <span dir="ltr">050-000-0002</span>
-                <Badge tone="ok">מורשה איסוף</Badge>
+              <li className={personRow}>
+                <b className={personName}>איל, אבא</b>
+                <span className={personDetail} dir="ltr">
+                  050-000-0002
+                </span>
+                <Badge tone="ok" className={personBadge}>
+                  מורשה איסוף
+                </Badge>
               </li>
-              <li>
-                <b>רחל, סבתא</b>
-                <span dir="ltr">050-000-0003</span>
-                <Badge tone="cool">חירום + איסוף</Badge>
+              <li className={personRow}>
+                <b className={personName}>רחל, סבתא</b>
+                <span className={personDetail} dir="ltr">
+                  050-000-0003
+                </span>
+                <Badge tone="cool" className={personBadge}>
+                  חירום + איסוף
+                </Badge>
               </li>
             </ul>
           </Card>
           <Card title="אישורים">
-            <ul className="people">
-              <li>
-                <b>צילום והעלאה לאלבום הקבוצתי</b>
-                <span>נוסח 2 · 01.09.2026</span>
-                <Badge tone="ok">מאושר</Badge>
+            <ul className={plainList}>
+              <li className={personRow}>
+                <b className={personName}>צילום והעלאה לאלבום הקבוצתי</b>
+                <span className={personDetail}>נוסח 2 · 01.09.2026</span>
+                <Badge tone="ok" className={personBadge}>
+                  מאושר
+                </Badge>
               </li>
-              <li>
-                <b>פעילות מחוץ למשפחתון</b>
-                <span>נוסח 1 · 01.09.2026</span>
-                <Badge tone="ok">מאושר</Badge>
+              <li className={personRow}>
+                <b className={personName}>פעילות מחוץ למשפחתון</b>
+                <span className={personDetail}>נוסח 1 · 01.09.2026</span>
+                <Badge tone="ok" className={personBadge}>
+                  מאושר
+                </Badge>
               </li>
             </ul>
           </Card>

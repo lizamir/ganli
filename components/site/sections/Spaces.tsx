@@ -1,3 +1,5 @@
+import { cn } from "@/lib/ui/cn";
+import { section } from "@/components/site/ui";
 import { SPACES } from "@/content";
 
 // Flat illustrations for each space, drawn with the brand blocks.
@@ -49,12 +51,23 @@ const ART = [
   </svg>,
 ];
 
-const SHAPE = ["arch", "round", "pill", "squircle"];
+// The card shapes echo the logo's arch. On phones the wide ones fold into a single column.
+const STACKED =
+  "mobile:[grid-row:auto] mobile:[grid-column:auto] mobile:rounded-[36px_120px_36px_36px] mobile:px-[30px]";
+const SHAPE = [
+  cn("[grid-row:span_2] rounded-[999px_999px_40px_40px] px-10", STACKED),
+  "rounded-[40px_100px_40px_40px]",
+  "rounded-[40px_40px_100px_40px]",
+  cn("[grid-column:span_2] rounded-[999px] px-[70px]", STACKED),
+];
+// No transform or transition here: the card is a .reveal element and those belong to the reveal.
+const spaceCard =
+  "relative flex flex-col justify-end overflow-hidden bg-(--accent) p-[30px] text-white after:absolute after:[inset:35%_0_0] after:[background:linear-gradient(transparent,rgba(62,50,43,0.82))] after:content-[''] mobile:min-h-[240px]";
 
 /** The rooms and the yard. */
 export default function Spaces() {
   return (
-    <section className="section spaces" id="spaces" aria-labelledby="spaces-title">
+    <section className={cn(section, "bg-cream")} id="spaces" aria-labelledby="spaces-title">
       <div className="container">
         <div className="reveal">
           <p className="eyebrow">
@@ -66,19 +79,19 @@ export default function Spaces() {
             <span className="serif ink-tomato">בגובה</span> העיניים.
           </h2>
         </div>
-        <div className="spaces-grid">
+        <div className="mt-[70px] grid grid-cols-[1.1fr_1fr_1fr] grid-rows-[280px_280px] gap-5 mobile:mt-[44px] mobile:grid-cols-[1fr] mobile:grid-rows-none">
           {SPACES.map((s, i) => (
             <article
-              className={`space shape-${SHAPE[i]} reveal`}
+              className={cn(spaceCard, SHAPE[i], "reveal")}
               data-color={s.color}
               key={s.title}
               style={{ ["--d" as string]: i }}
             >
-              <div className="space-art" aria-hidden="true">
+              <div className="absolute inset-0 [&_svg]:h-full [&_svg]:w-full" aria-hidden="true">
                 {ART[i]}
               </div>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
+              <h3 className="relative z-1 text-[1.9rem] tracking-[-0.03em] text-white">{s.title}</h3>
+              <p className="relative z-1 max-w-[22rem] text-[1rem] text-white">{s.text}</p>
             </article>
           ))}
         </div>

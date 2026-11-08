@@ -1,4 +1,4 @@
-import { Card } from "@/components/dashboard/ui";
+import { Card, fieldLabel, formMessage, formStack, rowEnds, textInput } from "@/components/dashboard/ui";
 
 type Props = {
   text: string;
@@ -14,10 +14,11 @@ type Props = {
 export default function MessageCard({ text, onText, onSend, onAbsence, absent, childName, msg }: Props) {
   return (
     <Card title="שליחת הודעה למנהלת">
-      <form className="event-form" onSubmit={onSend}>
-        <label>
+      <form className={formStack} onSubmit={onSend}>
+        <label className={fieldLabel}>
           מה תרצו לשאול או לעדכן?
           <textarea
+            className={textInput}
             value={text}
             onChange={(e) => onText(e.target.value)}
             rows={3}
@@ -25,13 +26,13 @@ export default function MessageCard({ text, onText, onSend, onAbsence, absent, c
           />
         </label>
         {msg && (
-          <p className={msg.ok ? "form-ok" : "form-error"} role="status">
+          <p className={formMessage(msg.ok)} role="status">
             {msg.text}
           </p>
         )}
-        <div className="row-end">
-          <button className="btn btn-primary btn-sm">שליחה</button>
-          <button type="button" className="btn btn-ghost btn-sm" onClick={onAbsence} disabled={absent}>
+        <div className={rowEnds}>
+          <button className="btn btn-primary btn-sm justify-center">שליחה</button>
+          <button type="button" className="btn btn-ghost btn-sm justify-center" onClick={onAbsence} disabled={absent}>
             {absent ? `${childName} מדווח/ת כנעדר/ת` : `דיווח היעדרות להיום`}
           </button>
         </div>

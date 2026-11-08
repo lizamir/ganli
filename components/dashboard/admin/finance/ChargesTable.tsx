@@ -1,4 +1,4 @@
-import { Avatar, Badge } from "@/components/dashboard/ui";
+import { Avatar, Badge, miniButton } from "@/components/dashboard/ui";
 import { shekel } from "@/lib/format";
 import type { Charge, Child } from "@/lib/domain/types";
 
@@ -12,7 +12,7 @@ type Props = {
 /** One row per family: what was charged, what was paid, and a button to record a payment. */
 export default function ChargesTable({ month, child, busy, onRecord }: Props) {
   return (
-    <table className="table">
+    <table className="data-table">
       <thead>
         <tr>
           <th>ילד</th>
@@ -35,7 +35,7 @@ export default function ChargesTable({ month, child, busy, onRecord }: Props) {
           return (
             <tr key={c.id}>
               <td data-label="ילד">
-                <span className="cell-person">
+                <span className="inline-flex items-center gap-2.5 font-heading text-[1rem]/[normal] font-semibold">
                   <Avatar name={k.name} color={k.color} size={30} />
                   {k.name}
                 </span>
@@ -58,7 +58,7 @@ export default function ChargesTable({ month, child, busy, onRecord }: Props) {
                 {!done && (
                   <button
                     type="button"
-                    className="mini-btn"
+                    className={miniButton}
                     disabled={busy === c.id}
                     onClick={() => onRecord(c.id, c.amount - c.paid)}
                   >

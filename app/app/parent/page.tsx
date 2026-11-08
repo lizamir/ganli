@@ -9,7 +9,7 @@ import PhotosCard from "@/components/dashboard/parent/today/PhotosCard";
 import SummaryCard from "@/components/dashboard/parent/today/SummaryCard";
 import TimelineCard from "@/components/dashboard/parent/today/TimelineCard";
 import TodayPhoto from "@/components/dashboard/parent/today/TodayPhoto";
-import { Badge, Empty, PageHead } from "@/components/dashboard/ui";
+import { Badge, Empty, PageHead, stack } from "@/components/dashboard/ui";
 import { useGanli } from "@/lib/data/GanliProvider";
 import { summarizeDay } from "@/lib/domain/daySummary";
 
@@ -44,16 +44,16 @@ export default function ParentToday() {
       />
 
       <SignupNotice childId={child.id} childName={child.name} />
-      <div className="grid-parent">
+      <div className="grid grid-cols-[1fr_1.3fr] [align-items:start] gap-5 narrow:grid-cols-[1fr]">
         <TodayPhoto child={child} photo={photos[0]} last={last} dayLabel={data.dayLabel} birthday={birthday} />
         <DayStripCard child={child} events={events} now={data.now} selected={selected} onSelect={setSelected} />
 
-        <div className="stack">
+        <div className={stack}>
           <SummaryCard summary={summary} dayLabel={data.dayLabel} planned={planned} />
           <TimelineCard child={child} events={events} />
         </div>
 
-        <div className="stack">
+        <div className={stack}>
           {notice && <NoticeBanner notice={notice} onRead={actions.markRead} />}
           <PhotosCard photos={photos} />
           <MomentCard childName={child.name} />

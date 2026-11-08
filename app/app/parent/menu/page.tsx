@@ -1,7 +1,7 @@
 "use client";
 
 import MenuView from "@/components/dashboard/care/MenuView";
-import { Badge, PageHead } from "@/components/dashboard/ui";
+import { Badge, PageHead, hintLine } from "@/components/dashboard/ui";
 import { useGanli } from "@/lib/data/GanliProvider";
 
 /** The weekly menu, marked for the child's allergies. */
@@ -26,7 +26,7 @@ export default function ParentMenu() {
         }
       />
       <MenuView child={child} />
-      <p className="hint-line">כל הארוחות מבושלות בגן. מנה שמסומנת באדום לא מתאימה לילד, והצוות מכין לו חלופה.</p>
+      <p className={hintLine}>כל הארוחות מבושלות בגן. מנה שמסומנת באדום לא מתאימה לילד, והצוות מכין לו חלופה.</p>
     </>
   );
 }

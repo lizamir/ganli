@@ -1,39 +1,37 @@
-/* The whole stylesheet, in cascade order. Later files override earlier ones, so the order matters.
-   base-: tokens and global rules. site-: the marketing site. dash-: the personal area. */
-@import "./01-base-tokens.css";
-@import "./02-base-base.css";
-@import "./03-base-type.css";
-@import "./04-base-buttons.css";
-@import "./05-base-reveal.css";
-@import "./06-base-accessibility-modes.css";
-@import "./07-base-cursor-ring.css";
-@import "./08-base-accessibility-menu.css";
-@import "./09-base-grain.css";
-@import "./10-site-shared.css";
-@import "./11-site-header.css";
-@import "./12-site-hero.css";
-@import "./13-site-ribbon.css";
-@import "./14-site-story.css";
-@import "./15-site-day.css";
-@import "./16-site-groups.css";
-@import "./17-site-app.css";
-@import "./18-site-spaces.css";
-@import "./19-site-faq.css";
-@import "./20-site-contact.css";
-@import "./21-site-footer.css";
-@import "./22-site-mobile-bar.css";
-@import "./23-site-responsive.css";
-@import "./24-site-a11y-statement.css";
-@import "./25-site-pickup-tag.css";
-@import "./26-site-meeting.css";
-@import "./27-dash-header-actions.css";
-@import "./28-dash-login.css";
-@import "./29-dash-app-shell.css";
-@import "./30-dash-cards.css";
-@import "./31-dash-day-ribbon.css";
-@import "./32-dash-parent.css";
-@import "./33-dash-staff.css";
-@import "./34-dash-admin.css";
-@import "./35-dash-smaller-screens.css";
-@import "./36-dash-features.css";
-@import "./37-dash-automations.css";
+/* The whole stylesheet.
+   Tailwind utilities are the main way to style components. The CSS files below hold what reads better as CSS:
+   tokens and element defaults, a few shared components, and the motion (keyframes, scroll reveals, 3D stages).
+
+   Cascade layers, lowest to highest:
+     theme       Tailwind's design tokens
+     base        tokens, global element rules, type system
+     components  buttons, the accessibility menu, the cursor, dashboard tables and switches, motion
+     a11y        the accessibility modes (contrast, no motion, underlined links, spacing) – above components
+     utilities   Tailwind utilities – they always win */
+@layer theme, base, components, a11y, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "./theme.css";
+
+/* These words are class names of the hand-written CSS, not Tailwind utilities. */
+@source not inline("container outline static table sr-only");
+
+@import "./base/tokens.css" layer(base);
+@import "./base/global.css" layer(base);
+@import "./base/typography.css" layer(base);
+
+@import "./components/buttons.css" layer(components);
+@import "./components/cursor.css" layer(components);
+@import "./components/accessibility-menu.css" layer(components);
+@import "./components/dashboard.css";
+
+@import "./motion/keyframes.css" layer(components);
+@import "./motion/reveal.css" layer(components);
+@import "./motion/grain.css" layer(components);
+@import "./motion/live-dot.css" layer(components);
+@import "./motion/hero.css" layer(components);
+@import "./motion/story.css" layer(components);
+@import "./motion/pickup-tag.css" layer(components);
+
+@import "./accessibility-modes.css" layer(a11y);

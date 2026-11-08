@@ -3,7 +3,17 @@
 import { useState } from "react";
 import InquiriesCard from "@/components/dashboard/admin/messages/InquiriesCard";
 import SentList from "@/components/dashboard/admin/messages/SentList";
-import { Card, PageHead } from "@/components/dashboard/ui";
+import {
+  Card,
+  PageHead,
+  fieldLabel,
+  formError,
+  formOk,
+  formStack,
+  grid2,
+  stack,
+  textInput,
+} from "@/components/dashboard/ui";
 import { useGanli } from "@/lib/data/GanliProvider";
 
 /** Announcements to parents, and parents' inquiries. */
@@ -30,13 +40,14 @@ export default function AdminMessages() {
   return (
     <>
       <PageHead kicker="הודעות" title="הודעות ופניות" />
-      <div className="grid-2">
-        <div className="stack">
+      <div className={grid2}>
+        <div className={stack}>
           <Card title="הודעה חדשה לכל ההורים">
-            <form className="event-form" onSubmit={send}>
-              <label>
+            <form className={formStack} onSubmit={send}>
+              <label className={fieldLabel}>
                 כותרת
                 <input
+                  className={textInput}
                   value={title}
                   onChange={(e) => {
                     setTitle(e.target.value);
@@ -45,21 +56,21 @@ export default function AdminMessages() {
                   placeholder="למשל: מחר יום פיג׳מות"
                 />
               </label>
-              <label>
+              <label className={fieldLabel}>
                 תוכן
-                <textarea value={body} onChange={(e) => setBody(e.target.value)} rows={3} />
+                <textarea className={textInput} value={body} onChange={(e) => setBody(e.target.value)} rows={3} />
               </label>
               {error && (
-                <p className="form-error" role="alert">
+                <p className={formError} role="alert">
                   {error}
                 </p>
               )}
               {sent && (
-                <p className="form-ok" role="status">
+                <p className={formOk} role="status">
                   ההודעה נשלחה. אפשר לראות אותה באזור ההורים ✓
                 </p>
               )}
-              <button className="btn btn-primary">שליחה</button>
+              <button className="btn btn-primary justify-center">שליחה</button>
             </form>
           </Card>
 

@@ -1,6 +1,7 @@
-import { Card } from "@/components/dashboard/ui";
+import { Card, LinkButton, fieldLabel, formMessage, formStack, hintLine, textInput } from "@/components/dashboard/ui";
 import { pickupCode } from "@/lib/domain/pickup";
 import type { Child } from "@/lib/domain/types";
+import { cn } from "@/lib/ui/cn";
 
 type Props = {
   code: string;
@@ -15,8 +16,8 @@ type Props = {
 export default function CodeCheckCard({ code, onCode, onVerify, demoChild, showDemoHelp, msg }: Props) {
   return (
     <Card title="אימות קוד">
-      <form className="event-form" onSubmit={onVerify}>
-        <label>
+      <form className={formStack} onSubmit={onVerify}>
+        <label className={fieldLabel}>
           הקוד שההורה מציג (6 ספרות)
           <input
             value={code}
@@ -24,28 +25,25 @@ export default function CodeCheckCard({ code, onCode, onVerify, demoChild, showD
             inputMode="numeric"
             autoComplete="off"
             dir="ltr"
-            className="code-input"
+            className={cn(textInput, "text-center font-heading text-[1.8rem]/[normal] font-extrabold tracking-[0.3em]")}
             placeholder="000 000"
             maxLength={7}
             aria-describedby="code-help"
           />
         </label>
-        <button className="btn btn-primary">אימות</button>
-        <p className="hint-line" id="code-help">
+        <button className="btn btn-primary justify-center">אימות</button>
+        <p className={hintLine} id="code-help">
           סריקת QR במצלמה תתווסף בגרסה הבאה. בינתיים מקלידים את הקוד.
           {showDemoHelp && demoChild && (
             <>
               {" "}
-              בדמו:{" "}
-              <button type="button" className="link-btn" onClick={() => onCode(pickupCode(demoChild.id))}>
-                הקוד של {demoChild.name}
-              </button>
+              בדמו: <LinkButton onClick={() => onCode(pickupCode(demoChild.id))}>הקוד של {demoChild.name}</LinkButton>
             </>
           )}
         </p>
       </form>
       {msg && (
-        <p className={msg.ok ? "form-ok" : "form-error"} role="status" style={{ marginTop: 12 }}>
+        <p className={formMessage(msg.ok)} role="status" style={{ marginTop: 12 }}>
           {msg.text}
         </p>
       )}

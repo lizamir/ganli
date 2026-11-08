@@ -1,0 +1,67 @@
+/* Tailwind's view of the brand tokens. The values point at the CSS variables in base/tokens.css,
+   so the accessibility high-contrast mode, which redefines those variables, still applies. */
+@theme inline {
+  --color-cream: var(--cream);
+  --color-paper: var(--paper);
+  --color-sand: var(--sand);
+  --color-wood: var(--wood);
+  --color-wood-dark: var(--wood-dark);
+  --color-cocoa: var(--cocoa);
+  --color-cocoa-deep: var(--cocoa-deep);
+  --color-muted: var(--muted);
+  --color-teal: var(--teal);
+  --color-teal-deep: var(--teal-deep);
+  --color-teal-soft: var(--teal-soft);
+  --color-tomato: var(--tomato);
+  --color-tomato-btn: var(--tomato-btn);
+  --color-tomato-ink: var(--tomato-ink);
+  --color-tomato-soft: var(--tomato-soft);
+  --color-blush: var(--blush);
+  --color-blush-soft: var(--blush-soft);
+  --color-mustard: var(--mustard);
+  --color-mustard-ink: var(--mustard-ink);
+  --color-mustard-soft: var(--mustard-soft);
+  --color-lilac: var(--lilac);
+  --color-lilac-soft: var(--lilac-soft);
+
+  --font-heading: var(--font-display);
+  --font-text: var(--font-body);
+  --font-handwriting: var(--font-hand-face);
+
+  --shadow-card: 0 1px 0 rgba(62, 50, 43, 0.06), 0 14px 30px -22px rgba(62, 50, 43, 0.4);
+  --shadow-block: var(--shadow-block);
+
+  /* Text and surfaces of status labels (fixed colors, checked for AA). */
+  --color-subtle: #6a584c;
+  --color-ok-soft: #d6f4e7;
+  --color-ok-ink: #0a6a43;
+  --color-warn-soft: #fde9bf;
+  --color-warn-ink: #6b4300;
+  --color-bad-soft: #ffd9d4;
+  --color-bad-ink: #8f1d12;
+  --color-cool-soft: #e5e2f7;
+  --color-cool-ink: #45389a;
+  --color-pink-soft: #ffe0ec;
+  --color-pink-ink: #9b2a5c;
+  --color-mute-soft: #ece5db;
+  --color-mute-ink: #6d5d51;
+  --color-app: #f6efe3;
+  --color-side-text: #e8dccd;
+  --color-side-muted: #cdbcae;
+}
+
+/* Breakpoints of the existing design (max-width, inclusive), so utilities match the hand-written rules exactly. */
+@custom-variant narrow (@media (max-width: 1200px));
+@custom-variant tablet (@media (max-width: 1100px));
+@custom-variant mobile (@media (max-width: 900px));
+/* Pickup section: the card moves under the text a little after the general phone layout starts. */
+@custom-variant upto-860 (@media (max-width: 860px));
+@custom-variant small (@media (max-width: 560px));
+@custom-variant wide (@media (min-width: 901px));
+@custom-variant xs (@media (max-width: 480px));
+/* Phones and touch screens: drop live blur over the 3D canvas. Declared last so it wins. */
+@custom-variant touch {
+  @media (max-width: 900px), (pointer: coarse) {
+    @slot;
+  }
+}

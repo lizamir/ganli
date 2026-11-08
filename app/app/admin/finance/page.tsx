@@ -2,7 +2,17 @@
 
 import { useState } from "react";
 import ChargesTable from "@/components/dashboard/admin/finance/ChargesTable";
-import { Card, PageHead } from "@/components/dashboard/ui";
+import {
+  Card,
+  PageHead,
+  formError,
+  hintLine,
+  tile,
+  tileLabel,
+  tileNote,
+  tileValue,
+  tilesGrid,
+} from "@/components/dashboard/ui";
 import { billedAmount, receivedAmount } from "@/lib/domain/finance";
 import { shekel } from "@/lib/format";
 import { useGanli } from "@/lib/data/GanliProvider";
@@ -28,32 +38,32 @@ export default function AdminFinance() {
   return (
     <>
       <PageHead kicker="כספים" title={`תשלומי ${data.currentPeriod}`} />
-      <div className="tiles three">
-        <div className="tile" style={{ background: "var(--cocoa)" }}>
-          <span>סה״כ לחיוב</span>
-          <b>{shekel(total)}</b>
-          <em>{month.length} משפחות</em>
+      <div className={tilesGrid(true)}>
+        <div className={tile} style={{ background: "var(--cocoa)" }}>
+          <span className={tileLabel}>סה״כ לחיוב</span>
+          <b className={tileValue}>{shekel(total)}</b>
+          <em className={tileNote}>{month.length} משפחות</em>
         </div>
-        <div className="tile" style={{ background: "var(--teal-deep)" }}>
-          <span>התקבל</span>
-          <b>{shekel(received)}</b>
-          <em>{total ? Math.round((received / total) * 100) : 0}% מהחיובים</em>
+        <div className={tile} style={{ background: "var(--teal-deep)" }}>
+          <span className={tileLabel}>התקבל</span>
+          <b className={tileValue}>{shekel(received)}</b>
+          <em className={tileNote}>{total ? Math.round((received / total) * 100) : 0}% מהחיובים</em>
         </div>
-        <div className="tile" style={{ background: "var(--tomato-btn)" }}>
-          <span>פתוח</span>
-          <b>{shekel(total - received)}</b>
-          <em>{month.filter((c) => c.paid < c.amount).length} משפחות</em>
+        <div className={tile} style={{ background: "var(--tomato-btn)" }}>
+          <span className={tileLabel}>פתוח</span>
+          <b className={tileValue}>{shekel(total - received)}</b>
+          <em className={tileNote}>{month.filter((c) => c.paid < c.amount).length} משפחות</em>
         </div>
       </div>
 
       <Card title="חיובים ותקבולים" note="תשלום שהתקבל מחוץ לאפליקציה נרשם כאן">
         {error && (
-          <p className="form-error" role="alert">
+          <p className={formError} role="alert">
             {error}
           </p>
         )}
         <ChargesTable month={month} child={child} busy={busy} onRecord={record} />
-        <p className="hint-line">
+        <p className={hintLine}>
           חיוב ותשלום הם רשומות נפרדות. החיבור להפקת חשבוניות עדיין לא נבחר, ולכן מספר המסמך כאן לדוגמה.
         </p>
       </Card>

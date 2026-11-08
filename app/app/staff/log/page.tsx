@@ -1,7 +1,18 @@
 "use client";
 
 import EventForm from "@/components/dashboard/care/EventForm";
-import { Card, Disc, PageHead } from "@/components/dashboard/ui";
+import {
+  Card,
+  Disc,
+  PageHead,
+  gridLog,
+  inSmallText,
+  plainList,
+  timelineDetail,
+  timelineItem,
+  timelineTime,
+  timelineTitle,
+} from "@/components/dashboard/ui";
 import { KIND } from "@/components/dashboard/care/careKinds";
 import { useGanli } from "@/lib/data/GanliProvider";
 
@@ -15,25 +26,25 @@ export default function StaffLog() {
   return (
     <>
       <PageHead kicker="יומן טיפול" title="עדכון יומן" />
-      <div className="grid-log">
+      <div className={gridLog}>
         <Card title="עדכון חדש">
           <EventForm />
         </Card>
         <Card title="עדכונים אחרונים">
-          <ul className="timeline-list">
+          <ul className={plainList}>
             {recent.map((e) => (
-              <li key={e.id}>
-                <Disc icon={KIND[e.kind].icon} color={KIND[e.kind].color} size={34} />
-                <div>
-                  <b>
+              <li key={e.id} className={timelineItem}>
+                <Disc icon={KIND[e.kind].icon} color={KIND[e.kind].color} size={34} className={inSmallText} />
+                <div className="grid flex-1">
+                  <b className={timelineTitle}>
                     {name(e.childId)} · {e.title}
                   </b>
-                  <span>
+                  <span className={timelineDetail}>
                     {e.detail}
                     {e.by ? ` · ${e.by}` : ""}
                   </span>
                 </div>
-                <time>{e.end ?? e.start}</time>
+                <time className={timelineTime}>{e.end ?? e.start}</time>
               </li>
             ))}
           </ul>

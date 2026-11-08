@@ -36,22 +36,29 @@ export default function DemoRoleCards() {
   const { signInDemo } = useGanli();
   const router = useRouter();
   return (
-    <div className="role-cards">
+    <div className="grid gap-3">
       {ROLES.map((r) => (
         <button
           type="button"
           key={r.role}
-          className="role-card"
+          className="role-card relative grid gap-1 rounded-[22px] bg-paper py-5 pr-6 pl-[60px] text-right shadow-block [transition:transform_0.25s_cubic-bezier(0.3,1.6,0.5,1)] hover:not-disabled:[transform:translateX(-6px)] disabled:cursor-not-allowed disabled:opacity-50"
           style={{ "--role": r.color, "--role-soft": r.soft } as React.CSSProperties}
           onClick={() => {
             signInDemo(r.role);
             router.push(`/app/${r.role}/`);
           }}
         >
-          <span className="role-chip">{r.label}</span>
-          <b>{r.who}</b>
-          <small>{r.text}</small>
-          <i aria-hidden="true">←</i>
+          <span className="[justify-self:start] rounded-[999px] bg-[var(--role-soft)] px-3 py-1.5 font-heading text-[0.8125rem]/none font-bold text-cocoa-deep">
+            {r.label}
+          </span>
+          <b className="mt-1.5 font-heading text-[1.3125rem]/[1.3] font-semibold text-cocoa-deep">{r.who}</b>
+          <small className="text-[0.9375rem] text-subtle">{r.text}</small>
+          <i
+            className="absolute top-1/2 left-6 [transform:translateY(-50%)] text-[1.375rem] text-cocoa not-italic"
+            aria-hidden="true"
+          >
+            ←
+          </i>
         </button>
       ))}
     </div>

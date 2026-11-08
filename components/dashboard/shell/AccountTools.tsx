@@ -4,21 +4,28 @@ import { useRouter } from "next/navigation";
 import Icon from "@/components/dashboard/ui/Icon";
 import { useGanli } from "@/lib/data/GanliProvider";
 import type { Profile, Role } from "@/lib/domain/types";
+import { cn } from "@/lib/ui/cn";
 import { ROLE_LABEL } from "./nav";
+
+const toolButton =
+  "flex items-center gap-2 p-1 font-heading text-[0.875rem]/[normal] font-medium text-side-muted [background:none] [border:0] hover:text-white";
 
 /** Demo mode: switch between the three roles, or reset the demo data. */
 function DemoSwitch({ role, onDone }: { role: Role; onDone: () => void }) {
   const { signInDemo, actions } = useGanli();
   const router = useRouter();
   return (
-    <div className="side-demo">
-      <span>מצב הדגמה · החליפו תפקיד</span>
-      <div>
+    <div className="mt-auto grid gap-2.5 rounded-[18px] bg-[rgba(255,255,255,0.06)] p-3.5 text-[0.8125rem] text-side-muted">
+      <span className="mobile:hidden">מצב הדגמה · החליפו תפקיד</span>
+      <div className="flex gap-1.5">
         {(["parent", "staff", "admin"] as Role[]).map((r) => (
           <button
             type="button"
             key={r}
-            className={r === role ? "on" : undefined}
+            className={cn(
+              "flex-1 rounded-[10px] px-1 py-[9px] font-heading text-[0.875rem]/[normal] font-semibold [border:0]",
+              r === role ? "bg-teal-deep text-white" : "bg-[rgba(255,255,255,0.1)] text-cream",
+            )}
             aria-pressed={r === role}
             onClick={() => {
               signInDemo(r);
@@ -30,7 +37,7 @@ function DemoSwitch({ role, onDone }: { role: Role; onDone: () => void }) {
           </button>
         ))}
       </div>
-      <button type="button" className="side-reset" onClick={() => actions.reset?.()}>
+      <button type="button" className={toolButton} onClick={() => actions.reset?.()}>
         <Icon name="refresh" size={15} /> איפוס נתוני הדמו
       </button>
     </div>
@@ -43,11 +50,12 @@ function ServerTools({ profile, onDone }: { profile: Profile; onDone: () => void
   const router = useRouter();
   if (!(institutions.length > 1 || actions.reset)) return null;
   return (
-    <div className="side-demo">
+    <div className="mt-auto grid gap-2.5 rounded-[18px] bg-[rgba(255,255,255,0.06)] p-3.5 text-[0.8125rem] text-side-muted">
       {institutions.length > 1 && (
-        <label className="inst-pick">
-          <span>מסגרת</span>
+        <label className="grid gap-1.5">
+          <span className="mobile:hidden">מסגרת</span>
           <select
+            className="rounded-[10px] bg-[rgba(255,255,255,0.1)] px-2.5 py-[9px] font-heading text-[0.875rem]/[normal] font-medium text-cream [border:0]"
             value={institutions.find((i) => profile.title.endsWith(i.name))?.id}
             onChange={(e) => {
               switchInstitution(e.target.value);
@@ -56,7 +64,7 @@ function ServerTools({ profile, onDone }: { profile: Profile; onDone: () => void
             }}
           >
             {institutions.map((i) => (
-              <option key={i.id} value={i.id}>
+              <option key={i.id} value={i.id} className="text-cocoa-deep">
                 {i.name} · {ROLE_LABEL[i.role]}
               </option>
             ))}
@@ -64,7 +72,7 @@ function ServerTools({ profile, onDone }: { profile: Profile; onDone: () => void
         </label>
       )}
       {actions.reset && (
-        <button type="button" className="side-reset" onClick={() => actions.reset?.()}>
+        <button type="button" className={toolButton} onClick={() => actions.reset?.()}>
           <Icon name="refresh" size={15} /> יצירת יום דמו מחדש
         </button>
       )}
@@ -82,7 +90,7 @@ export default function AccountTools({ profile, onDone = () => {} }: { profile: 
       {mode === "supabase" && <ServerTools profile={profile} onDone={onDone} />}
       <button
         type="button"
-        className="side-out"
+        className={cn(toolButton, "px-3.5 py-2.5 text-[1rem]/[normal]")}
         onClick={async () => {
           await signOut();
           router.replace("/login/");

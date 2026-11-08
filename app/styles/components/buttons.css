@@ -1,4 +1,5 @@
-/* ───────────── Buttons ───────────── */
+/* ───────────── Buttons ─────────────
+   One button component for both sites: .btn plus a variant (primary, ghost, light, wa) and an optional .btn-sm. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -53,6 +54,14 @@
 }
 .btn-sm {
   min-height: 44px;
-  padding: 12px 20px;
+  padding: 12px 18px;
   font-size: 1rem;
+}
+.btn-wa {
+  background: #0e7a3f;
+  color: #fff;
+  box-shadow: 0 4px 0 #075c2e;
+}
+.btn-wa:hover {
+  box-shadow: 0 8px 0 #075c2e;
 }

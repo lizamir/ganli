@@ -1,6 +1,8 @@
+import { Empty } from "@/components/dashboard/ui";
+
 /** A small bar chart of how many children came each day this week. Pure SVG, with a text table fallback for screen readers. */
 export default function AttendanceChart({ week }: { week: { label: string; present: number; total: number }[] }) {
-  if (!week.length) return <p className="empty">עדיין אין נתוני נוכחות להצגה.</p>;
+  if (!week.length) return <Empty>עדיין אין נתוני נוכחות להצגה.</Empty>;
   const max = Math.max(...week.map((w) => w.total), 1);
   const W = 360;
   const H = 150;
@@ -9,7 +11,7 @@ export default function AttendanceChart({ week }: { week: { label: string; prese
     <div>
       <svg
         viewBox={`0 0 ${W} ${H + 30}`}
-        className="att-chart"
+        className="block h-auto w-full"
         role="img"
         aria-label={`נוכחות השבוע: ${week.map((w) => `${w.label} ${w.present} מתוך ${w.total}`).join(", ")}`}
       >

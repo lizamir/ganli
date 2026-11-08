@@ -29,7 +29,10 @@ export default function Shell({ children }: { children: ReactNode }) {
 
   if (status !== "ready" || !profile || wrongArea) {
     return (
-      <div className="app-loading" role="status">
+      <div
+        className="grid min-h-screen place-content-center justify-items-center gap-4 font-heading text-[1.125rem]/[normal] font-medium [&>svg]:w-[90px] [&>svg]:animate-[bob_1.4s_ease-in-out_infinite]"
+        role="status"
+      >
         <LogoMark />
         <span>טוענים את המשפחתון…</span>
       </div>
@@ -44,7 +47,7 @@ export default function Shell({ children }: { children: ReactNode }) {
   const more = needMore ? nav.slice(MOBILE_PRIMARY) : [];
 
   return (
-    <div className="app">
+    <div className="grid min-h-screen grid-cols-[272px_1fr] bg-app mobile:grid-cols-[1fr]">
       <Sidebar profile={profile} nav={nav} active={active} />
       <MobileNav
         profile={profile}
@@ -58,7 +61,11 @@ export default function Shell({ children }: { children: ReactNode }) {
 
       {sheet && <UserSheet profile={profile} more={more} active={active} onClose={closeSheet} />}
 
-      <main className="app-main" id="main" tabIndex={-1}>
+      <main
+        className="min-w-0 px-10 pt-[34px] pb-[60px] mobile:px-4 mobile:pt-5 mobile:pb-[110px]"
+        id="main"
+        tabIndex={-1}
+      >
         {children}
       </main>
 

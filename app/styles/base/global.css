@@ -1,4 +1,9 @@
-/* ───────────── Base ───────────── */
+/* Ganli. Design idea: a doorway. The arch from the logo is the recurring shape (hero window, group cards,
+   space cards), set against huge Heebo headlines and one handwritten word per headline.
+   Motion idea: things get built. Blocks drop, the castle rises as you scroll, the day moves across a sky. */
+
+/* ───────────── Global rules ─────────────
+   Box sizing, text size steps for the accessibility menu, element defaults, focus ring, the container. */
 * {
   box-sizing: border-box;
 }
@@ -110,4 +115,27 @@ ol {
 .container {
   width: min(var(--container), 100% - 64px);
   margin-inline: auto;
+}
+@media (max-width: 900px) {
+  .container {
+    width: min(var(--container), 100% - 36px);
+  }
+}
+
+/* A section or card sets data-color; its children read --accent / --accent-soft. */
+[data-color="teal"] {
+  --accent: var(--teal);
+  --accent-soft: var(--teal-soft);
+}
+[data-color="tomato"] {
+  --accent: var(--tomato);
+  --accent-soft: var(--tomato-soft);
+}
+[data-color="blush"] {
+  --accent: var(--blush);
+  --accent-soft: var(--blush-soft);
+}
+[data-color="mustard"] {
+  --accent: var(--mustard);
+  --accent-soft: var(--mustard-soft);
 }

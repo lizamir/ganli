@@ -30,13 +30,14 @@ Without Supabase settings the app runs in **demo mode** on mock data. To connect
 - **Commits** follow [Conventional Commits](https://www.conventionalcommits.org); a hook checks each message.
 - **Versions** follow [SemVer](https://semver.org). Changes are listed in `CHANGELOG.md`.
 - **CI** runs every check and the browser tests on each pull request (`.github/workflows/ci.yml`).
-- **Formatting** is Prettier and ESLint, run on staged files before each commit.
+- **Formatting** is Prettier and ESLint, run on staged files before each commit. Prettier also sorts Tailwind classes.
+- **Styling** is [Tailwind CSS](https://tailwindcss.com) v4. Components carry utility classes; class lists that repeat live in small modules next to the components (`components/dashboard/ui/form.ts`, `lists.ts`, `stats.ts`, `components/site/form.ts`), joined with `cn()` (`lib/ui/cn.ts`). Brand colors, fonts and breakpoints (`tablet`, `mobile`, `small`, `xs`, `touch`…) are Tailwind tokens in `app/styles/theme.css`. Plain CSS is kept for what reads better as CSS: tokens and element defaults, the button component, keyframes, scroll reveals and the 3D stages.
 
 ## Design system
 
 - **Idea:** a doorway. The arch from the logo is the recurring shape (hero window, group cards, space cards). Things get _built_: blocks drop, the castle rises as you scroll, the day crosses a sky.
 - **Type:** Heebo (from `app/fonts/`, variable 100–900) is the main face for everything. Gveret Levin (Hebrew handwriting) is the accent: one handwritten word per headline, big numerals and the margin notes. Never for running text.
-- **Color:** cream, wood, cocoa, with teal, tomato, mustard and blush. The bright colors are for fills; text uses darker `-ink` / `-deep` twins. Every text pair is WCAG AA (tokens and notes in `app/styles/01-base-tokens.css`).
+- **Color:** cream, wood, cocoa, with teal, tomato, mustard and blush. The bright colors are for fills; text uses darker `-ink` / `-deep` twins. Every text pair is WCAG AA (tokens and notes in `app/styles/base/tokens.css`).
 - **Motion:** smooth scroll (Lenis), scroll-driven 3D castle (`components/site/sections/Story.tsx`), pinned day timeline (`components/site/sections/Day.tsx`), masked headline reveals, marquee, cursor ring. All of it turns off with "reduce motion" or the in-page switch, and the content stays the same.
 
 ## Accessibility
@@ -79,7 +80,11 @@ Builds a static, demo-mode export under `/demos/ganli` and copies it to `../liz-
 
 ```
 app/                  routes only: metadata and composing a page
-  styles/             the stylesheet, numbered in cascade order (index.css imports them; the order matters)
+  styles/             index.css (cascade layers and imports), theme.css (Tailwind tokens and breakpoints)
+    base/             brand tokens, element defaults, type system
+    components/       buttons, accessibility menu, cursor, dashboard table and switch
+    motion/           keyframes, scroll reveals, grain, the story stage, the pickup tag
+    accessibility-modes.css   contrast, no motion, underlined links, spacing (a layer above components)
 content/              all marketing copy, by topic
 components/
   common/             used everywhere: accessibility menu, reveal, smooth scroll, shapes

@@ -34,7 +34,7 @@ export default function AdminHome() {
         billed={month.length}
       />
 
-      <div className="grid-admin">
+      <div className="grid grid-cols-[repeat(2,1fr)] gap-5 narrow:grid-cols-[1fr]">
         <CoverageCard data={data} />
         <PaymentsCard data={data} />
         <TodoCard consentMissing={consentMissing} unpaid={[...pending, ...late]} openInquiries={openInquiries} />

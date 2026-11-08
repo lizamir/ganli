@@ -4,8 +4,14 @@ import { useMemo, useState, useSyncExternalStore } from "react";
 import { freeSlots } from "@/lib/automations/schedule";
 import { auto, useAutomations } from "@/lib/automations/store";
 import type { Booking } from "@/lib/automations/types";
+import { formError } from "@/components/dashboard/ui/form";
+import { cn } from "@/lib/ui/cn";
+import { formButton, formField, formLabel, formRow } from "@/components/site/form";
 
 const TOPICS = ["היכרות והרשמה לשנה הבאה", "שיחה על הילד", "תשלומים וכספים", "אחר"];
+
+const slot =
+  "min-h-[44px] rounded-[14px] [border:2px_solid_var(--sand)] bg-cream px-[14px] py-2 [font:600_0.95rem_var(--font-body)] text-cocoa-deep [transition:background_0.2s,border-color_0.2s] hover:border-teal aria-pressed:border-teal-deep aria-pressed:bg-teal-deep aria-pressed:text-white";
 
 /** Pick a free day and time, and leave a name and phone number. */
 export default function BookingForm({ onBooked }: { onBooked: (b: Booking) => void }) {
@@ -34,14 +40,15 @@ export default function BookingForm({ onBooked }: { onBooked: (b: Booking) => vo
   };
 
   return (
-    <form onSubmit={submit} noValidate className="meet-form">
-      <fieldset className="slot-group">
-        <legend>יום</legend>
-        <div className="slots">
+    <form onSubmit={submit} noValidate className="grid gap-4">
+      <fieldset className="m-0 grid min-w-0 gap-2 p-0 [border:0]">
+        <legend className="mb-2 p-0 text-[0.95rem] font-bold text-cocoa-deep">יום</legend>
+        <div className="flex flex-wrap gap-2">
           {days.map((d) => (
             <button
               key={d.date}
               type="button"
+              className={slot}
               aria-pressed={day?.date === d.date}
               onClick={() => {
                 setDate(d.date);
@@ -53,40 +60,47 @@ export default function BookingForm({ onBooked }: { onBooked: (b: Booking) => vo
           ))}
         </div>
       </fieldset>
-      <fieldset className="slot-group">
-        <legend>שעה</legend>
-        <div className="slots">
+      <fieldset className="m-0 grid min-w-0 gap-2 p-0 [border:0]">
+        <legend className="mb-2 p-0 text-[0.95rem] font-bold text-cocoa-deep">שעה</legend>
+        <div className="flex flex-wrap gap-2">
           {day?.times.map((t) => (
-            <button key={t} type="button" aria-pressed={time === t} onClick={() => setTime(t)} dir="ltr">
+            <button
+              key={t}
+              type="button"
+              className={slot}
+              aria-pressed={time === t}
+              onClick={() => setTime(t)}
+              dir="ltr"
+            >
               {t}
             </button>
           ))}
         </div>
       </fieldset>
-      <div className="row">
-        <label>
+      <div className={formRow}>
+        <label className={formLabel}>
           שם
-          <input name="name" autoComplete="name" required />
+          <input className={formField} name="name" autoComplete="name" required />
         </label>
-        <label>
+        <label className={formLabel}>
           טלפון
-          <input name="phone" type="tel" inputMode="tel" dir="ltr" autoComplete="tel" required />
+          <input className={formField} name="phone" type="tel" inputMode="tel" dir="ltr" autoComplete="tel" required />
         </label>
       </div>
-      <label>
+      <label className={formLabel}>
         נושא
-        <select name="topic" defaultValue={TOPICS[0]}>
+        <select className={formField} name="topic" defaultValue={TOPICS[0]}>
           {TOPICS.map((t) => (
             <option key={t}>{t}</option>
           ))}
         </select>
       </label>
       {err && (
-        <p className="form-error" role="alert">
+        <p className={formError} role="alert">
           {err}
         </p>
       )}
-      <button className="btn btn-primary">קביעת פגישה ←</button>
+      <button className={cn("btn btn-primary", formButton)}>קביעת פגישה ←</button>
     </form>
   );
 }

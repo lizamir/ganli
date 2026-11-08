@@ -1,5 +1,6 @@
-import { Badge, Card } from "@/components/dashboard/ui";
+import { Badge, Card, MessageHeader, miniButton, plainList, rowEnds } from "@/components/dashboard/ui";
 import type { Inquiry } from "@/lib/domain/types";
+import { cn } from "@/lib/ui/cn";
 
 /** Messages and absence reports from parents, each with a handled switch. */
 export default function InquiriesCard({
@@ -11,18 +12,18 @@ export default function InquiriesCard({
 }) {
   return (
     <Card title="פניות מהורים" note={`${inquiries.filter((q) => !q.done).length} פתוחות`}>
-      <ul className="inquiries">
+      <ul className={cn(plainList, "gap-1")}>
         {inquiries.map((q) => (
-          <li key={q.id} className={q.done ? "done" : undefined}>
-            <div className="msg-top">
-              <b>{q.from}</b>
-              <time>{q.time}</time>
-            </div>
+          <li
+            key={q.id}
+            className={cn("mb-2 grid gap-2 rounded-[18px] p-3.5", q.done ? "bg-[#f1eadf]" : "bg-[#faf5ec]")}
+          >
+            <MessageHeader title={q.from} time={q.time} />
             {q.kind === "absence" && <Badge tone="cool">דיווח היעדרות</Badge>}
-            <p>{q.text}</p>
-            <div className="row-end">
+            <p className={q.done ? "text-muted" : "text-[#4f3f35]"}>{q.text}</p>
+            <div className={rowEnds}>
               {q.done ? <Badge tone="ok">טופל</Badge> : <Badge tone="warn">ממתין</Badge>}
-              <button type="button" className="mini-btn" onClick={() => onToggle(q.id, !q.done)}>
+              <button type="button" className={miniButton} onClick={() => onToggle(q.id, !q.done)}>
                 {q.done ? "החזרה לפתוח" : "סימון כטופל"}
               </button>
             </div>

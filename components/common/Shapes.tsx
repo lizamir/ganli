@@ -1,3 +1,4 @@
+import { cn } from "@/lib/ui/cn";
 // Flat block shapes from the brand: square, arch, triangle, half-circle and star.
 
 type ShapeProps = { color?: string; className?: string };
@@ -81,18 +82,39 @@ export function LogoMark({ className }: { className?: string }) {
   );
 }
 
-export function Logo() {
+export const logoLink = "inline-flex items-center gap-3 [&_svg]:h-auto [&_svg]:w-[50px]";
+const TAGLINE_COLORS = ["text-tomato", "text-mustard", "text-teal", "text-blush"];
+
+/** The word mark next to the logo. `light` is for dark backgrounds (the open phone menu). */
+export function LogoWord({ light, tagline = true }: { light?: boolean; tagline?: boolean }) {
   return (
-    <a className="logo" href="#top" aria-label="גנלי — לראש העמוד">
-      <LogoMark />
-      <span className="logo-word">
-        <b>גנלי</b>
-        <small>
+    <span className="flex flex-col leading-none">
+      <b
+        className={cn(
+          "tracking-[-0.04em] [font:900_1.9rem/1_var(--font-display)]",
+          light ? "text-cream" : "text-cocoa-deep",
+        )}
+      >
+        גנלי
+      </b>
+      {tagline && (
+        <small className="mt-1 text-right tracking-[0.18em] [direction:ltr] [font:700_0.65rem/1_var(--font-display)]">
           {"PLAY&LEARN".split("").map((ch, i) => (
-            <span key={i}>{ch}</span>
+            <span key={i} className={TAGLINE_COLORS[i % 4]}>
+              {ch}
+            </span>
           ))}
         </small>
-      </span>
+      )}
+    </span>
+  );
+}
+
+export function Logo({ light }: { light?: boolean }) {
+  return (
+    <a className={logoLink} href="#top" aria-label="גנלי — לראש העמוד">
+      <LogoMark />
+      <LogoWord light={light} />
     </a>
   );
 }

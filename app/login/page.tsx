@@ -17,18 +17,18 @@ export default function LoginPage() {
   }, [status, profile, router]);
 
   return (
-    <div className="login">
+    <div className="grid min-h-screen grid-cols-[1fr_1.05fr] bg-cream mobile:grid-cols-[1fr]">
       <LoginArt />
 
-      <main className="login-panel" id="main">
-        <div className="login-box">
+      <main className="grid place-items-center px-10 py-[60px] mobile:px-4 mobile:py-10" id="main">
+        <div className="w-[min(520px,100%)]">
           <p className="eyebrow">האזור האישי</p>
-          <h1>כניסה לגנלי</h1>
+          <h1 className="mt-3 mb-[26px] text-[3rem]">כניסה לגנלי</h1>
 
           {mode === "supabase" ? (
             <LoginForm />
           ) : (
-            <p className="login-note">
+            <p className="mb-[22px] text-[1rem] text-subtle">
               זו גרסת הדגמה עם נתונים מומצאים. בחרו איך להיכנס. השינויים שתעשו נשמרים רק בדפדפן הזה.
             </p>
           )}

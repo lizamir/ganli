@@ -3,9 +3,22 @@
 import { useState } from "react";
 import { useGanli } from "@/lib/data/GanliProvider";
 import type { CareKind } from "@/lib/domain/types";
-import { Avatar } from "@/components/dashboard/ui";
+import {
+  Avatar,
+  fieldLabel,
+  fieldsetPlain,
+  formError,
+  formOk,
+  formRow,
+  formStack,
+  legendText,
+  pickButton,
+  pickRow,
+  textInput,
+} from "@/components/dashboard/ui";
 import { KIND } from "@/components/dashboard/care/careKinds";
 import Icon from "@/components/dashboard/ui/Icon";
+import { cn } from "@/lib/ui/cn";
 
 const PRESETS: Record<CareKind, { title: string; details: string[] }> = {
   meal: { title: "ארוחת ארבע", details: ["אכל/ה הכול", "אכל/ה חצי", "אכל/ה מעט"] },
@@ -65,15 +78,15 @@ export default function EventForm({
   };
 
   return (
-    <form className="event-form" onSubmit={submit}>
-      <fieldset>
-        <legend>למי?</legend>
-        <div className="kid-picks">
+    <form className={formStack} onSubmit={submit}>
+      <fieldset className={fieldsetPlain}>
+        <legend className={legendText}>למי?</legend>
+        <div className={pickRow}>
           {present.map((c) => (
             <button
               type="button"
               key={c.id}
-              className={kids.includes(c.id) ? "on" : undefined}
+              className={pickButton(kids.includes(c.id), true)}
               aria-pressed={kids.includes(c.id)}
               onClick={() => toggle(c.id)}
             >
@@ -83,7 +96,7 @@ export default function EventForm({
           ))}
           <button
             type="button"
-            className="link-btn"
+            className={pickButton(false, true)}
             onClick={() => setKids(kids.length === present.length ? [] : present.map((c) => c.id))}
           >
             {kids.length === present.length ? "ניקוי" : "כל הקבוצה"}
@@ -91,14 +104,17 @@ export default function EventForm({
         </div>
       </fieldset>
 
-      <fieldset>
-        <legend>מה עדכנו?</legend>
-        <div className="kind-picks">
+      <fieldset className={fieldsetPlain}>
+        <legend className={legendText}>מה עדכנו?</legend>
+        <div className="grid grid-cols-[repeat(3,1fr)] gap-2.5 small:gap-2">
           {(["meal", "sleep", "care"] as CareKind[]).map((k) => (
             <button
               type="button"
               key={k}
-              className={kind === k ? "on" : undefined}
+              className={cn(
+                "grid justify-items-center gap-1.5 rounded-[18px] border-2 border-solid bg-[var(--kt)] px-2 py-4 font-heading text-[1rem]/[normal] font-semibold text-[var(--ki)]",
+                kind === k ? "border-[var(--k)] shadow-[0_4px_0_var(--k)]" : "border-transparent",
+              )}
               aria-pressed={kind === k}
               style={{ "--k": KIND[k].color, "--kt": KIND[k].tint, "--ki": KIND[k].ink } as React.CSSProperties}
               onClick={() => chooseKind(k)}
@@ -110,29 +126,29 @@ export default function EventForm({
         </div>
       </fieldset>
 
-      <div className="form-row">
-        <label>
+      <div className={formRow}>
+        <label className={fieldLabel}>
           כותרת
-          <input value={title} onChange={(e) => setTitle(e.target.value)} required />
+          <input className={textInput} value={title} onChange={(e) => setTitle(e.target.value)} required />
         </label>
-        <label>
+        <label className={fieldLabel}>
           התחלה
-          <input type="time" value={start} onChange={(e) => setStart(e.target.value)} required />
+          <input className={textInput} type="time" value={start} onChange={(e) => setStart(e.target.value)} required />
         </label>
-        <label>
+        <label className={fieldLabel}>
           סיום {kind === "care" ? "(לא חובה)" : ""}
-          <input type="time" value={end} onChange={(e) => setEnd(e.target.value)} />
+          <input className={textInput} type="time" value={end} onChange={(e) => setEnd(e.target.value)} />
         </label>
       </div>
 
-      <fieldset>
-        <legend>פירוט</legend>
-        <div className="detail-picks">
+      <fieldset className={fieldsetPlain}>
+        <legend className={legendText}>פירוט</legend>
+        <div className={pickRow}>
           {PRESETS[kind].details.map((d) => (
             <button
               type="button"
               key={d}
-              className={detail === d ? "on" : undefined}
+              className={pickButton(detail === d)}
               aria-pressed={detail === d}
               onClick={() => setDetail(d)}
             >
@@ -143,16 +159,18 @@ export default function EventForm({
       </fieldset>
 
       {error && (
-        <p className="form-error" role="alert">
+        <p className={formError} role="alert">
           {error}
         </p>
       )}
       {saved != null && !error && (
-        <p className="form-ok" role="status">
+        <p className={formOk} role="status">
           נשמר ל־{saved} ילדים. ההורים כבר רואים את העדכון ✓
         </p>
       )}
-      <button className="btn btn-primary">שמירת עדכון {kids.length > 1 ? `ל־${kids.length} ילדים` : ""}</button>
+      <button className="btn btn-primary justify-center">
+        שמירת עדכון {kids.length > 1 ? `ל־${kids.length} ילדים` : ""}
+      </button>
     </form>
   );
 }

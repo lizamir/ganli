@@ -98,3 +98,32 @@
   text-decoration: underline;
   padding: 6px;
 }
+
+/* Phones: smaller, and above the sticky bars. */
+@media (max-width: 900px) {
+  .a11y {
+    inset-block-end: 84px;
+    inset-inline-start: 14px;
+  }
+  .a11y-fab {
+    width: 48px;
+    height: 48px;
+  }
+}
+@media (max-width: 900px) {
+  body:has(.m-bottom) .a11y {
+    inset-block-end: 88px;
+    inset-inline-start: 12px;
+  }
+  body:has(.m-bottom) .a11y-fab {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (min-width: 901px) {
+  body:has(.side) .a11y {
+    inset-inline-start: auto;
+    inset-inline-end: 20px;
+  }
+}

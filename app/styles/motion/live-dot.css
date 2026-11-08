@@ -1,0 +1,10 @@
+/* ───────────── Live dot ─────────────
+   The pulsing "live now" dot in the hero. */
+.live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: live-pulse 1.6s infinite;
+  flex: none;
+}
