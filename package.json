@@ -50,7 +50,7 @@
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.4",
-    "typescript": "^5",
+    "typescript": "^7",
     "vitest": "^5.1.0"
   },
   "description": "Brand site and management app for a daycare: parents, staff and director.",
